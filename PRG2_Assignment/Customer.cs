@@ -17,6 +17,10 @@ namespace PRG2_Assignment
         private DateTime dob;
         public DateTime Dob { get; set; }
 
+        private Order currentOrder;
+
+        public Order CurrentOrder { get; set; }
+
         private List<Order> orderHistory;
         public List<Order> OrderHistory { get; set;}
 
@@ -31,16 +35,22 @@ namespace PRG2_Assignment
             Name = name;
             Memberid = memberid;
             Dob = dob;
+            CurrentOrder = currentOrder;
+            OrderHistory = new List<Order>();
+            Rewards = new PointCard();
         }
 
         public Order MakeOrder()
         {
+            Order newOrder = new Order();
+            CurrentOrder = newOrder;
+            return newOrder;
 
         }
 
         public bool IsBirthday()
         {
-
+            return Dob.Month == DateTime.Now.Month && Dob.Day == DateTime.Now.Day;
         }
 
         public override string ToString()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,18 +36,27 @@ namespace PRG2_Assignment
             TimeReceived=timeReceived;
         }
 
-        public void ModifyIceCream(int id)
+        public void ModifyIceCream(int index, IceCream ModifiedIceCream)
         {
+            if (index>= 0 && index< iceCreamList.Count)
+            {
+                iceCreamList[index]=ModifiedIceCream;
+            }
 
         }
 
-        public void AddIceCream(IceCream)
+        public void AddIceCream(IceCream icecream)
         {
+            iceCreamList.Add(icecream);
 
         }
 
-        public void DeleteIceCream(int id)
+        public void DeleteIceCream(int index)
         {
+            if (index >= 0 && index < iceCreamList.Count)
+            {
+                iceCreamList.RemoveAt(index);
+            }
 
         }
 
