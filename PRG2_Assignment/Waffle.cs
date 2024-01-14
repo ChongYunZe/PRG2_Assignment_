@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRG2_Assignment
 {
-    internal class Waffle
+    internal class Waffle:IceCream
     {
         private string waffleFlavour;
         public string WaffleFlavour { get; set; }
@@ -17,7 +17,7 @@ namespace PRG2_Assignment
         }
         public override double CalculatePrice()
         {
-
+            return 1;
         }
         public override string ToString()
         {

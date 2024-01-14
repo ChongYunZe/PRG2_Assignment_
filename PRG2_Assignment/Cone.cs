@@ -17,6 +17,7 @@ namespace PRG2_Assignment
         }
         public override double CalculatePrice()
         {
+            return 1;
             
         }
         public override string ToString()

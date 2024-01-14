@@ -62,7 +62,7 @@ namespace PRG2_Assignment
 
         public double CalculateTotal()
         {
-
+            return 1;
         }
 
         public override string ToString()
