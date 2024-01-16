@@ -5,7 +5,9 @@ using System.Numerics;
 //YunZe --> Features 2, 5, 6
 
 int option;
-List<Customer> customerlist = new List<Customer>();
+List<Customer> customerlist = new List<Customer>(); //From option 1
+Dictionary<int ,Order> orderDict = new Dictionary<int, Order> (); //From option 2
+
 void DisplayMenu()
 {
     Console.WriteLine("-------------I.C.Treats Menu--------------");
@@ -70,6 +72,42 @@ while (true)
             Console.WriteLine(ex.Message);
         }
     }
+    else if (option == 2)
+    {
+        try
+        {
+            using (StreamReader srOrders = new StreamReader("orders.csv"))
+            {
+                string? sOrders = srOrders.ReadLine();
+                if (sOrders != null)
+                {
+                    string[] headingOrders = sOrders.Split(',');
+                    Console.WriteLine("{0, -4} {1, -10} {2, -18} {3, -18} {4, -8} {5, -7} {6, -7} {7, -15} {8, -12} {9, -12} {10, -12} {11, -10} {12, -10} {13, -10} {14, -10}", headingOrders[0], headingOrders[1], headingOrders[2], headingOrders[3], headingOrders[4], headingOrders[5], headingOrders[6], headingOrders[7], headingOrders[8], headingOrders[9], headingOrders[10], headingOrders[11], headingOrders[12], headingOrders[13], headingOrders[14]);
+
+                    while ((sOrders = srOrders.ReadLine()) != null)
+                    {
+                        string[] valuesOrders = sOrders.Split(",");
+                        Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
+                        orderDict[Convert.ToInt32(valuesOrders[0])] = orders;
+                    }
+                    foreach (Order order in orderDict.Values)
+                    {
+                        Console.WriteLine(order.ToString());
+                    }
+
+                    
+                }
+
+            }
+
+        }
+
+        catch (FileNotFoundException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
 }
 
 
