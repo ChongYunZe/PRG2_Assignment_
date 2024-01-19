@@ -1,6 +1,7 @@
 using PRG2_Assignment;
 using System;
 using System.Numerics;
+using System.Xml.Linq;
 //Daniel --> Features 1, 3, 4
 //YunZe --> Features 2, 5, 6
 
@@ -107,8 +108,32 @@ while (true)
             Console.WriteLine(ex.Message);
         }
     }
+
+    else if (option == 3)
+    {
+        Console.WriteLine("Please enter your name: ");
+        string customername = Console.ReadLine();
+        Console.WriteLine("Please enter your id: ");
+        int customermemberid = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Please enter your date of birth (dob): ");
+        DateTime customerdob = Convert.ToDateTime(Console.ReadLine());
+
+        Customer newcustomer = new Customer(customername,customermemberid,customerdob);
+        PointCard pointCard = new PointCard();
+        newcustomer.Rewards = pointCard;
+
+        using (StreamWriter sw = new StreamWriter("customers.csv"))
+        {
+            sw.WriteLine($"{customername},{customermemberid},{customerdob:MM/dd/yyyy}");
+        }
+
+        // Display registration status
+        Console.WriteLine("Customer registered successfully!");
+
+    }
+
 }
-}
+
 
 
 
