@@ -20,7 +20,7 @@ void DisplayMenu()
     Console.WriteLine("[6] Modify order details");
     Console.WriteLine("[0] Exit");
     Console.WriteLine("------------------------------------------");
-    Console.WriteLine("Please enter an option: ");
+    Console.Write("Please enter an option: ");
     option = Convert.ToInt32(Console.ReadLine());
 
 }
@@ -83,17 +83,17 @@ while (true)
                 if (sOrders != null)
                 {
                     string[] headingOrders = sOrders.Split(',');
-                    Console.WriteLine("{0, -4} {1, -10} {2, -18} {3, -18} {4, -8} {5, -7} {6, -7} {7, -15} {8, -12} {9, -12} {10, -12} {11, -10} {12, -10} {13, -10} {14, -10}", headingOrders[0], headingOrders[1], headingOrders[2], headingOrders[3], headingOrders[4], headingOrders[5], headingOrders[6], headingOrders[7], headingOrders[8], headingOrders[9], headingOrders[10], headingOrders[11], headingOrders[12], headingOrders[13], headingOrders[14]);
+                    Console.WriteLine("{0, -4} {1, -10} {2, -18} ", headingOrders[0], headingOrders[1], headingOrders[2]);
 
                     while ((sOrders = srOrders.ReadLine()) != null)
                     {
                         string[] valuesOrders = sOrders.Split(",");
                         Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
-                        orderDict[Convert.ToInt32(valuesOrders[0])] = orders;
+                        orderDict[Convert.ToInt32(valuesOrders[1])] = orders;
                     }
-                    foreach (Order order in orderDict.Values)
+                    foreach (KeyValuePair <int, Order> kvp in orderDict)
                     {
-                        Console.WriteLine(order.ToString());
+                        Console.WriteLine("{0, -4} {1, -10} {2, -18} ", kvp.Value.Id, kvp.Key, kvp.Value.TimeReceived);
                     }
 
                     

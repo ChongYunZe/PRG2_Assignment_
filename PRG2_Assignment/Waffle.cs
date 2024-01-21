@@ -11,13 +11,33 @@ namespace PRG2_Assignment
         private string waffleFlavour;
         public string WaffleFlavour { get; set; }
         public Waffle() { }
-        public Waffle(string option, int scoops, List<Flavour> flavours, List<Topping> toppings, string waffleFlavour) : base(option, scoops, flavours, toppings)
+        public Waffle(string option, int scoops, List<Flavour> flavours, List<Topping> toppings, string waffleFlavour) : base("Waffle", scoops, flavours, toppings)
         {
             WaffleFlavour = waffleFlavour;
         }
         public override double CalculatePrice()
         {
-            return 1;
+            double price = 0;
+            if (Scoops == 1)
+            {
+                price = 7;
+            }
+            else if (Scoops == 2)
+            {
+                price = 8.5;
+            }
+            else
+            {
+                price = 9.5;
+            }
+            if (new[] { "red velvet", "charcoal", "pandan" }.Contains(WaffleFlavour.ToLower()))
+            {
+                price += 3;
+            }
+            //Not sure how to access the toppings
+            double toppingPrice = toppings.Count;
+            price += toppingPrice; //Probably wrong
+            return price;
         }
         public override string ToString()
         {
