@@ -116,15 +116,15 @@ while (true)
         Console.WriteLine("Please enter your id: ");
         int customermemberid = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Please enter your date of birth (dob): ");
-        DateTime customerdob = Convert.ToDateTime(Console.ReadLine());
+        DateTime customerdob = DateTime.Parse(Console.ReadLine());
 
         Customer newcustomer = new Customer(customername,customermemberid,customerdob);
         PointCard pointCard = new PointCard();
         newcustomer.Rewards = pointCard;
 
-        using (StreamWriter sw = new StreamWriter("customers.csv"))
+        using (StreamWriter sw = new StreamWriter("customers.csv", true))
         {
-            sw.WriteLine($"{customername},{customermemberid},{customerdob:MM/dd/yyyy}");
+            sw.WriteLine($"{customername},{customermemberid},{customerdob:dd/MM/yyyy}");
         }
 
         // Display registration status
