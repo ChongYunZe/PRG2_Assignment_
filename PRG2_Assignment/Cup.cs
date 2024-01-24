@@ -5,7 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 //==========================================================
-// Student Number : S10257927 & S10258472
+// Student Number : S10258472
+// Student Name : Daniel Sha
+// Partner Name : Chong Yun Ze
+//==========================================================
+//==========================================================
+// Student Number : S10257927
 // Student Name : Chong Yun Ze
 // Partner Name : Daniel Sha
 //==========================================================
@@ -18,9 +23,9 @@ namespace PRG2_Assignment
         {
 
         }
-        public Cup(string option, List<Flavour> flavours)
+        public Cup(string option, int scoops, List<Flavour> flavours, List<Topping> toppings) : base("Cup", scoops, flavours, toppings)
         {
-            Option= option;
+            
         }
 
         public override double CalculatePrice()
@@ -39,9 +44,9 @@ namespace PRG2_Assignment
                 price = 6.5;
             }
 
-            //Not sure how to access the toppings
-            double toppingPrice = toppings.Count;
-            price += toppingPrice; //Probably wrong
+            
+            double toppingPrice = Toppings.Count;
+            price += toppingPrice; 
             return price;
         }
 

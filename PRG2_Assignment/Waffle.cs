@@ -41,7 +41,7 @@ namespace PRG2_Assignment
                 price += 3;
             }
             //Not sure how to access the toppings
-            double toppingPrice = toppings.Count;
+            double toppingPrice = Toppings.Count;
             price += toppingPrice; //Probably wrong
             return price;
         }
