@@ -9,11 +9,7 @@ using System.Threading.Tasks;
 // Student Name : Daniel Sha
 // Partner Name : Chong Yun Ze
 //==========================================================
-//==========================================================
-// Student Number : S10257927
-// Student Name : Chong Yun Ze
-// Partner Name : Daniel Sha
-//==========================================================
+
 
 namespace PRG2_Assignment
 {
@@ -63,7 +59,7 @@ namespace PRG2_Assignment
             PunchCard++;
             if (PunchCard == 10)
             {
-                // Reset punch card and provide a free ice cream
+                
                 PunchCard = 0;
                 Console.WriteLine("Congratulations! You've earned a free ice cream.");
             }

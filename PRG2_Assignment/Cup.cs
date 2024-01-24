@@ -9,11 +9,6 @@ using System.Threading.Tasks;
 // Student Name : Daniel Sha
 // Partner Name : Chong Yun Ze
 //==========================================================
-//==========================================================
-// Student Number : S10257927
-// Student Name : Chong Yun Ze
-// Partner Name : Daniel Sha
-//==========================================================
 
 namespace PRG2_Assignment
 {
