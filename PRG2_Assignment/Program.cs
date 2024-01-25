@@ -12,7 +12,7 @@ using System.Xml.Linq;
 // Partner Name : Daniel Sha
 //==========================================================
 
-//Test
+
 
 int option;
 List<Customer> customerlist = new List<Customer>(); //From option 1
@@ -57,7 +57,7 @@ void ReadingCustomerFile()
                 customer.Rewards = pointcard;
                
                 customerlist.Add(customer);
-                
+
                 
             }
 
@@ -102,7 +102,8 @@ while (true)
         {
             try
             {
-                using (StreamReader srOrders = new StreamReader("orders.csv"))
+                
+                /*using (StreamReader srOrders = new StreamReader("orders.csv"))
                 {
                     string? sOrders = srOrders.ReadLine();
                     if (sOrders != null)
@@ -124,7 +125,7 @@ while (true)
 
                     }
                     
-                }
+                }*/
 
             }
 
@@ -173,15 +174,7 @@ while (true)
             ReadingCustomerFile(); //Method to read the customer.csv file
             Console.WriteLine("Please select a customer: ");
             string customer = Console.ReadLine();
-            foreach (var customerkvp in customerdict)
-            {
-                Customer Customer = customerkvp.Value;
-                if (customerdict.ContainsKey(customer))
-                {
-                    Console.WriteLine($"Customer retrieved: {customer} ");
-                }
-            }
-            
+            //hello
 
         }
 
