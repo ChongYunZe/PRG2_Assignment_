@@ -11,6 +11,8 @@ using System.Xml.Linq;
 // Partner Name : Daniel Sha
 //==========================================================
 
+//Test
+
 int option;
 List<Customer> customerlist = new List<Customer>(); //From option 1
 Dictionary<int ,Order> orderDict = new Dictionary<int, Order> (); //From option 2
@@ -113,7 +115,7 @@ while (true)
 
 
                     }
-                    IceCream testI = new Waffle ("Waffle", 3, )
+                    
                 }
 
             }
