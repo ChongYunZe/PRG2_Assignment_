@@ -17,7 +17,8 @@ int option;
 List<Customer> customerlist = new List<Customer>(); //From option 1
 Dictionary<string, Customer> customerdict = new Dictionary<string, Customer>(); //From option 4
 Dictionary<int ,Order> orderDict = new Dictionary<int, Order> (); //From option 2
-
+//Queue<> goldQueue = new Queue<>();
+//Queue<> regularQueue = new Queue<>();
 void DisplayMenu()
 {
     Console.WriteLine("");
@@ -99,7 +100,18 @@ while (true)
         {
             try
             {
-                
+                /*Console.WriteLine("=============== Gold Queue ===============");
+                foreach(order in goldQueue)
+                {
+                    Console.WriteLine(order);
+                }
+                Console.WriteLine("============= Regular Queue ==============");
+                foreach (order in goldQueue)
+                {
+                    Console.WriteLine(order);
+                }*/
+
+
                 /*using (StreamReader srOrders = new StreamReader("orders.csv"))
                 {
                     string? sOrders = srOrders.ReadLine();
