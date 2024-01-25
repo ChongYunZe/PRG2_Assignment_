@@ -113,7 +113,7 @@ while (true)
 
 
                     }
-                    IceCream testI = new Waffle ("Waffle", 3, )
+                    
                 }
 
             }
@@ -163,6 +163,7 @@ while (true)
             ReadingCustomerFile();
             Console.WriteLine("Please select a customer: ");
             string customer = Console.ReadLine();
+            //hello
 
         }
 
