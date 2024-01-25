@@ -11,7 +11,7 @@ using System.Xml.Linq;
 // Partner Name : Daniel Sha
 //==========================================================
 
-//Test
+
 
 int option;
 List<Customer> customerlist = new List<Customer>(); //From option 1
@@ -52,6 +52,7 @@ void ReadingCustomerFile()
                 string[] values = s.Split(',');
                 Customer customer = new(values[0], Convert.ToInt32(values[1]), Convert.ToDateTime(values[2]));
                 customerlist.Add(customer);
+
             }
 
             foreach (Customer customer in customerlist)
@@ -94,7 +95,8 @@ while (true)
         {
             try
             {
-                using (StreamReader srOrders = new StreamReader("orders.csv"))
+                
+                /*using (StreamReader srOrders = new StreamReader("orders.csv"))
                 {
                     string? sOrders = srOrders.ReadLine();
                     if (sOrders != null)
@@ -116,7 +118,7 @@ while (true)
 
                     }
                     
-                }
+                }*/
 
             }
 
@@ -165,7 +167,7 @@ while (true)
             ReadingCustomerFile();
             Console.WriteLine("Please select a customer: ");
             string customer = Console.ReadLine();
-            //hello
+            
 
         }
 
