@@ -52,7 +52,7 @@ namespace PRG2_Assignment
 
         }
 
-        public void AddIceCream(IceCream icecream)
+        public void AddIceCream(IceCream? icecream)
         {
             iceCreamList.Add(icecream);
 

@@ -18,8 +18,8 @@ int option;
 List<Customer> customerlist = new List<Customer>(); //From option 1
 Dictionary<string, Customer> customerdict = new Dictionary<string, Customer>(); //From option 4
 Dictionary<int ,Order> orderDict = new Dictionary<int, Order> (); //From option 2
-//Queue<> goldQueue = new Queue<>();
-//Queue<> regularQueue = new Queue<>();
+Queue<Order> goldQueue = new Queue<Order>();
+Queue<Order> regularQueue = new Queue<Order>();
 void DisplayMenu()
 {
     Console.WriteLine("");
@@ -114,7 +114,7 @@ while (true)
                     Console.WriteLine(order);
                 }*/
 
-
+                /*commenting this part out first as theres errors
                 using (StreamReader srOrders = new StreamReader("orders.csv"))
                 {
                     string? sOrders = srOrders.ReadLine();
@@ -138,7 +138,7 @@ while (true)
                         
                     }
                     
-                }
+                }*/
 
             }
 
@@ -187,25 +187,59 @@ while (true)
             ReadingCustomerFile(); //Method to read the customer.csv file
             Console.WriteLine("Please select a Member Id: ");
             int customerid = Convert.ToInt32(Console.ReadLine());
+            Customer selectedcustomer = null;
 
-            for (int i = 0; i < customerlist.Count; i++)
+
+            foreach (Customer customer in customerlist)
             {
-                if (customerid == customerlist[i].Memberid)
+                
+                if (customer.Memberid == customerid)
                 {
-                    Console.WriteLine($"Member id {customerid} belongs to {customerlist[i].Name}");
-                    Order customerorder = new Order();
+                    selectedcustomer = customer;
+                    
+                    while (true)
+                    {
+                        
+                        Order customerorder = new Order();
 
-                    Console.WriteLine("Please enter your option (Cup, Cone or Waffle) : ");
-                    string icecreamoption = Console.ReadLine();
-                    Console.WriteLine("Please enter the number of scoops: ");
-                    int scoops = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Please enter your Ice Cream Flavour: ");
-                    string flavour = Console.ReadLine();
-                    //Flavour flavour1 = new Flavour(flavour);
-                    Console.WriteLine("Please enter your Toppings: ");
-                    string toppings = Console.ReadLine();
-                    Topping topping1 = new Topping(toppings);
-                   // IceCream neworder = new IceCream(icecreamoption,scoops,flavour,toppings);
+                        Console.WriteLine("Please enter your option (Cup, Cone or Waffle) : ");
+                        string icecreamoption = Console.ReadLine();
+                        Console.WriteLine("Please enter the number of scoops: ");
+                        int scoops = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Please enter your Ice Cream Flavour: ");
+                        string flavourType = Console.ReadLine();
+
+                       
+                        Console.WriteLine("Is it a premium flavour? (true/false): ");
+                        bool isPremium = Convert.ToBoolean(Console.ReadLine());
+
+                        
+                        Console.WriteLine("Please enter the quantity: ");
+                        int quantity = Convert.ToInt32(Console.ReadLine());
+                        Flavour flavour1 = new Flavour(flavourType, isPremium, quantity);
+                        Console.WriteLine("Please enter your Toppings: ");
+                        string toppings = Console.ReadLine();
+                        Topping topping1 = new Topping(toppings);
+
+                        IceCream neworder = new Cone(icecreamoption, scoops, new List<Flavour> { flavour1 }, new List<Topping> { topping1 }, true);
+                        customerorder.AddIceCream(neworder);
+
+                        Console.WriteLine("Would you like to add another ice cream to your order?: ");
+
+                        string anotherorder = Console.ReadLine();
+
+                        /*
+                        if (anotherorder == "Y")
+                        {
+                            
+                        }
+                        else if (anotherorder == "N")
+                        {
+                            selectedcustomer.CurrentOrder = neworder2;
+                            
+                        }*/
+                    }
+                    
 
                 }
             }
