@@ -115,29 +115,30 @@ while (true)
                 }*/
 
 
-                /*using (StreamReader srOrders = new StreamReader("orders.csv"))
+                using (StreamReader srOrders = new StreamReader("orders.csv"))
                 {
                     string? sOrders = srOrders.ReadLine();
                     if (sOrders != null)
                     {
-                        string[] headingOrders = sOrders.Split(',');
-                        Console.WriteLine("{0, -4} {1, -10} {2, -18} ", headingOrders[0], headingOrders[1], headingOrders[2]);
+                        //string[] headingOrders = sOrders.Split(',');
+                        //Console.WriteLine("{0, -4} {1, -10} {2, -18} ", headingOrders[0], headingOrders[1], headingOrders[2]);
 
                         while ((sOrders = srOrders.ReadLine()) != null)
                         {
                             string[] valuesOrders = sOrders.Split(",");
                             Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
                             orderDict[Convert.ToInt32(valuesOrders[1])] = orders;
+                            customer.OrderHistory.Add(Order)
                         }
                         foreach (KeyValuePair<int, Order> kvp in orderDict)
                         {
                             Console.WriteLine("{0, -4} {1, -10} {2, -18} ", kvp.Value.Id, kvp.Key, kvp.Value.TimeReceived);
                         }
 
-
+                        
                     }
                     
-                }*/
+                }
 
             }
 
@@ -213,6 +214,7 @@ while (true)
 
             
 
+            //   customer.OrderHistory.Add(Order)
         }
 
         else if (option > 6)
