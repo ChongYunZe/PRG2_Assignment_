@@ -58,7 +58,7 @@ void ReadingCustomerFile()
                 customer.Rewards = pointcard;
                
                 customerlist.Add(customer);
-
+                //customerdict.Add(customer.Name, customer);
                 
             }
 
@@ -184,9 +184,20 @@ while (true)
         else if (option == 4)
         {
             ReadingCustomerFile(); //Method to read the customer.csv file
-            Console.WriteLine("Please select a customer: ");
-            string customer = Console.ReadLine();
-            //hello
+            Console.WriteLine("Please select a Member Id: ");
+            int customerid = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < customerlist.Count; i++)
+            {
+                if (customerid == customerlist[i].Memberid)
+                {
+                    Console.WriteLine($"Member id {customerid} belongs to {customerlist[i].Name}");
+                }
+            }
+
+          
+
+            
 
         }
 
