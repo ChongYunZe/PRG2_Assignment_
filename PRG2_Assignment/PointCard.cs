@@ -29,8 +29,9 @@ namespace PRG2_Assignment
 
         }
 
-        public PointCard(int points, int punchcard)
+        public PointCard(string tier, int points, int punchcard)
         {
+            Tier = tier;
             Points= points;
             PunchCard= punchcard;
         }

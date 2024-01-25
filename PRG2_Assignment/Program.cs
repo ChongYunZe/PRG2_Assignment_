@@ -1,6 +1,7 @@
 using PRG2_Assignment;
 using System;
 using System.Numerics;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 //Daniel --> Features 1, 3, 4
 //YunZe --> Features 2, 5, 6
@@ -45,26 +46,26 @@ void ReadingCustomerFile()
         if (s != null)
         {
             string[] heading = s.Split(',');
-            Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15} {5,-15}",
+            Console.WriteLine("{0,-15} {1,-15} {2,-25} {3,-20} {4,-20} {5,-15}",
                 heading[0], heading[1], heading[2], heading[3], heading[4], heading[5]);
-
+            
             while ((s = sr.ReadLine()) != null)
             {
                 string[] values = s.Split(',');
                 Customer customer = new(values[0], Convert.ToInt32(values[1]), Convert.ToDateTime(values[2]));
-                PointCard pointcard = new(Convert.ToInt32(values[3]), Convert.ToInt32(values[4]));
+                PointCard pointcard = new(values[3], Convert.ToInt32(values[4]), Convert.ToInt32(values[5]));
                 customer.Rewards = pointcard;
                
                 customerlist.Add(customer);
-
+                
                 
             }
 
             foreach (Customer customer in customerlist)
             {
-                Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15}",
-                customer.Name, customer.Memberid, customer.Dob, customer.Rewards.Points);
-                Console.WriteLine(customer.Rewards);
+                Console.WriteLine("{0,-15} {1,-15} {2,-25} {3,-20} {4,-20} {5,-15}",
+                customer.Name, customer.Memberid, customer.Dob, customer.Rewards.Tier, customer.Rewards.Points, customer.Rewards.PunchCard);
+                
 
 
             }
