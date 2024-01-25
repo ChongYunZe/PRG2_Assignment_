@@ -186,8 +186,15 @@ while (true)
             ReadingCustomerFile(); //Method to read the customer.csv file
             Console.WriteLine("Please select a customer: ");
             string customer = Console.ReadLine();
-            //hello
+            
 
+        }
+
+        else if (option == 5)
+        {
+            ReadingCustomerFile();
+            Console.Write("Please select a customer: ");
+            string customerInput = Console.ReadLine();
         }
 
         else if (option > 6)
