@@ -192,6 +192,20 @@ while (true)
                 if (customerid == customerlist[i].Memberid)
                 {
                     Console.WriteLine($"Member id {customerid} belongs to {customerlist[i].Name}");
+                    Order customerorder = new Order();
+
+                    Console.WriteLine("Please enter your option (Cup, Cone or Waffle) : ");
+                    string icecreamoption = Console.ReadLine();
+                    Console.WriteLine("Please enter the number of scoops: ");
+                    int scoops = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Please enter your Ice Cream Flavour: ");
+                    string flavour = Console.ReadLine();
+                    //Flavour flavour1 = new Flavour(flavour);
+                    Console.WriteLine("Please enter your Toppings: ");
+                    string toppings = Console.ReadLine();
+                    Topping topping1 = new Topping(toppings);
+                   // IceCream neworder = new IceCream(icecreamoption,scoops,flavour,toppings);
+
                 }
             }
 
