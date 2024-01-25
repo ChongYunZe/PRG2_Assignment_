@@ -206,8 +206,114 @@ while (true)
 
 }
 
+//else if (option == 2)
+//{
+//    try
+//    {
+//        /*Console.WriteLine("=============== Gold Queue ===============");
+//        foreach(order in goldQueue)
+//        {
+//            Console.WriteLine(order);
+//        }
+//        Console.WriteLine("============= Regular Queue ==============");
+//        foreach (order in goldQueue)
+//        {
+//            Console.WriteLine(order);
+//        }*/
 
 
+//        using (StreamReader srOrders = new StreamReader("orders.csv"))
+//        {
+//            string? sOrders = srOrders.ReadLine();
+//            if (sOrders != null)
+//            {
+//                //string[] headingOrders = sOrders.Split(',');
+//                //Console.WriteLine("{0, -4} {1, -10} {2, -18} ", headingOrders[0], headingOrders[1], headingOrders[2]);
+
+//                while ((sOrders = srOrders.ReadLine()) != null)
+//                {
+//                    string[] valuesOrders = sOrders.Split(",");
+//                    Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
+//                    orderDict[Convert.ToInt32(valuesOrders[1])] = orders;
+//                    customer.OrderHistory.Add(Order)
+//                        }
+//                foreach (KeyValuePair<int, Order> kvp in orderDict)
+//                {
+//                    Console.WriteLine("{0, -4} {1, -10} {2, -18} ", kvp.Value.Id, kvp.Key, kvp.Value.TimeReceived);
+//                }
+
+
+//            }
+
+//        }
+
+//    }
+
+//    catch (FileNotFoundException ex)
+//    {
+//        Console.WriteLine(ex.Message);
+//    }
+//}
+
+//else if (option == 3)
+//{
+//    try
+//    {
+//        Console.WriteLine("Please enter your name: ");
+//        string customername = Console.ReadLine();
+//        Console.WriteLine("Please enter your id: ");
+//        int customermemberid = Convert.ToInt32(Console.ReadLine());
+//        Console.WriteLine("Please enter your date of birth (dob): ");
+//        //DateTime.Parse makes sure the date entered is correctly read
+//        DateTime customerdob = DateTime.Parse(Console.ReadLine());
+
+//        //creating customer object
+//        Customer newcustomer = new Customer(customername, customermemberid, customerdob);
+//        PointCard pointCard = new PointCard();
+//        newcustomer.Rewards = pointCard;
+
+//        using (StreamWriter sw = new StreamWriter("customers.csv", true))
+//        {
+//            sw.WriteLine($"{customername},{customermemberid},{customerdob:dd/MM/yyyy}");
+//        }
+
+//        // Displaying registration status
+//        Console.WriteLine("Customer registered successfully!");
+//    }
+
+//    catch (FileNotFoundException ex)
+//    {
+//        Console.WriteLine(ex.Message);
+//    }
+
+
+//}
+
+//else if (option == 4)
+//{
+//    ReadingCustomerFile(); //Method to read the customer.csv file
+//    Console.WriteLine("Please select a customer: ");
+//    string customer = Console.ReadLine();
+
+
+//}
+
+//else if (option == 5)
+//{
+//    ReadingCustomerFile();
+//    Console.Write("Please select a customer: ");
+//    int customerInput = Convert.ToInt32(Console.ReadLine());
+//    for (int i = 0; i < customerlist.Count; i++)
+//    {
+//        if (customerInput == Convert.ToInt32(customerlist[i].Memberid))
+//        {
+
+//        }
+//    }
+    
+
+//    //   customer.OrderHistory.Add(Order)
+//}
 
 
 
