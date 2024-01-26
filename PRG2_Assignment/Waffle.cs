@@ -22,7 +22,7 @@ namespace PRG2_Assignment
         private string waffleFlavour;
         public string WaffleFlavour { get; set; }
         public Waffle() { }
-        public Waffle(string option, int scoops, List<Flavour> flavours, List<Topping> toppings, string waffleFlavour) : base("Waffle", scoops, flavours, toppings)
+        public Waffle(string option, int scoops, List<Flavour> flavours, List<Topping> toppings, string waffleFlavour) : base(option, scoops, flavours, toppings)
         {
             WaffleFlavour = waffleFlavour;
         }

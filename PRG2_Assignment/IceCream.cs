@@ -32,8 +32,8 @@ namespace PRG2_Assignment
         {
             Option = option;
             Scoops = scoops;
-            Flavours = new List<Flavour>();
-            Toppings = new List<Topping>();
+            Flavours = flavours ?? new List<Flavour>();
+            Toppings = toppings ?? new List<Topping>();
         }
         public abstract double CalculatePrice();
         

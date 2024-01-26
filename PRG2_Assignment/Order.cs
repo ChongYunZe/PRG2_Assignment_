@@ -34,7 +34,7 @@ namespace PRG2_Assignment
 
         public Order()
         {
-
+            IceCreamList = new List<IceCream>();
         }
 
         public Order(int id, DateTime timeReceived)
@@ -45,24 +45,24 @@ namespace PRG2_Assignment
 
         public void ModifyIceCream(int index, IceCream ModifiedIceCream)
         {
-            if (index>= 0 && index< iceCreamList.Count)
+            if (index>= 0 && index< IceCreamList.Count)
             {
-                iceCreamList[index]=ModifiedIceCream;
+                IceCreamList[index]=ModifiedIceCream;
             }
 
         }
 
         public void AddIceCream(IceCream? icecream)
         {
-            iceCreamList.Add(icecream);
+            IceCreamList.Add(icecream);
 
         }
 
         public void DeleteIceCream(int index)
         {
-            if (index >= 0 && index < iceCreamList.Count)
+            if (index >= 0 && index < IceCreamList.Count)
             {
-                iceCreamList.RemoveAt(index);
+                IceCreamList.RemoveAt(index);
             }
 
         }

@@ -187,20 +187,20 @@ while (true)
             ReadingCustomerFile(); //Method to read the customer.csv file
             Console.WriteLine("Please select a Member Id: ");
             int customerid = Convert.ToInt32(Console.ReadLine());
-            Customer selectedcustomer = null;
+            Customer selectedcustomer = new Customer();
 
 
-            foreach (Customer customer in customerlist)
+            for (int i = 0; i < customerlist.Count; i++)
             {
-                
-                if (customer.Memberid == customerid)
+                if (customerlist[i].Memberid == customerid)
                 {
-                    selectedcustomer = customer;
-                    
+                    Order customerorder = new Order();
+
+
                     while (true)
                     {
+
                         
-                        Order customerorder = new Order();
 
                         Console.WriteLine("Please enter your option (Cup, Cone or Waffle) : ");
                         string icecreamoption = Console.ReadLine();
@@ -209,11 +209,11 @@ while (true)
                         Console.WriteLine("Please enter your Ice Cream Flavour: ");
                         string flavourType = Console.ReadLine();
 
-                       
+
                         Console.WriteLine("Is it a premium flavour? (true/false): ");
                         bool isPremium = Convert.ToBoolean(Console.ReadLine());
 
-                        
+
                         Console.WriteLine("Please enter the quantity: ");
                         int quantity = Convert.ToInt32(Console.ReadLine());
                         Flavour flavour1 = new Flavour(flavourType, isPremium, quantity);
@@ -226,23 +226,35 @@ while (true)
 
                         Console.WriteLine("Would you like to add another ice cream to your order?: ");
 
-                        string anotherorder = Console.ReadLine();
+                        string anotherorder = Console.ReadLine().ToUpper();
 
-                        /*
-                        if (anotherorder == "Y")
+                        
+                        if (anotherorder != "Y")
                         {
-                            
+                            break;
                         }
-                        else if (anotherorder == "N")
-                        {
-                            selectedcustomer.CurrentOrder = neworder2;
-                            
-                        }*/
+                        
+                        
                     }
-                    
+                    selectedcustomer = customerlist[i];
+                    selectedcustomer.CurrentOrder = customerorder;
+
+                    if (selectedcustomer.Rewards.Tier == "Gold")
+                    {
+                        goldQueue.Enqueue(customerorder);
+                    }
+                    else
+                    {
+                        regularQueue.Enqueue(customerorder);
+                    }
+
+                    Console.WriteLine("Order has been made successfully!");
+                    break;
+
 
                 }
             }
+
 
           
 
