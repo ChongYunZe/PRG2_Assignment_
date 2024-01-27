@@ -221,9 +221,41 @@ while (true)
                         string toppings = Console.ReadLine();
                         Topping topping1 = new Topping(toppings);
 
-                        IceCream neworder = new Cone(icecreamoption, scoops, new List<Flavour> { flavour1 }, new List<Topping> { topping1 }, true);
-                        customerorder.AddIceCream(neworder);
+                        if (icecreamoption == "Cone")
+                        {
+                            Console.WriteLine("Do you want your cone dipped? (yes/no) ");
+                            string dippedcone = Console.ReadLine();
+                            if (dippedcone == "yes")
+                            {
+                                IceCream neworder = new Cone(icecreamoption, scoops, new List<Flavour> { flavour1 }, new List<Topping> { topping1 }, true);
+                                customerorder.AddIceCream(neworder);
+                            }
+                            else
+                            {
+                                IceCream neworder = new Cone(icecreamoption, scoops, new List<Flavour> { flavour1 }, new List<Topping> { topping1 }, false);
+                                customerorder.AddIceCream(neworder);
+                            }
+                            
+                            
 
+                        }
+                        else if (icecreamoption == "Cup")
+                        {
+                            IceCream neworder = new Cup(icecreamoption, scoops, new List<Flavour> { flavour1 }, new List<Topping> { topping1 });
+                            customerorder.AddIceCream(neworder);
+                        }
+
+                        else if (icecreamoption == "Waffle")
+                        {
+                            Console.WriteLine("What flavour do you want for your waffle? ");
+                            string waffleflavour = Console.ReadLine();
+
+                            IceCream neworder = new Waffle(icecreamoption, scoops, new List<Flavour> { flavour1 }, new List<Topping> { topping1 }, waffleflavour);
+                            customerorder.AddIceCream(neworder);
+                        }
+
+
+                        
                         Console.WriteLine("Would you like to add another ice cream to your order?: ");
 
                         string anotherorder = Console.ReadLine().ToUpper();
@@ -260,7 +292,7 @@ while (true)
 
             
 
-            //   customer.OrderHistory.Add(Order)
+            
         }
 
         else if (option > 6)
