@@ -199,8 +199,16 @@ while (true)
 
                     while (true)
                     {
+                        List<Flavour> normalflavour = new List<Flavour>();
+                        normalflavour.Add(new Flavour("Vanilla",false,1));
+                        normalflavour.Add(new Flavour("Chocolate", false, 1));
+                        normalflavour.Add(new Flavour("Strawberry", false, 1));
 
-                        
+                        List<Flavour> premiumflavour = new List<Flavour>();
+                        premiumflavour.Add(new Flavour("Durian", true, 1));
+                        premiumflavour.Add(new Flavour("Ube", true, 1));
+                        premiumflavour.Add(new Flavour("Sea Salt", true, 1));
+
 
                         Console.WriteLine("Please enter your option (Cup, Cone or Waffle) : ");
                         string icecreamoption = Console.ReadLine();
@@ -210,13 +218,9 @@ while (true)
                         string flavourType = Console.ReadLine();
 
 
-                        Console.WriteLine("Is it a premium flavour? (true/false): ");
-                        bool isPremium = Convert.ToBoolean(Console.ReadLine());
-
-
                         Console.WriteLine("Please enter the quantity: ");
                         int quantity = Convert.ToInt32(Console.ReadLine());
-                        Flavour flavour1 = new Flavour(flavourType, isPremium, quantity);
+                        Flavour flavour1 = new Flavour(flavourType,quantity);
                         Console.WriteLine("Please enter your Toppings: ");
                         string toppings = Console.ReadLine();
                         Topping topping1 = new Topping(toppings);
