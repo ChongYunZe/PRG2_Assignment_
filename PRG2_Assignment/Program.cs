@@ -199,15 +199,8 @@ while (true)
 
                     while (true)
                     {
-                        List<Flavour> normalflavour = new List<Flavour>();
-                        normalflavour.Add(new Flavour("Vanilla",false,1));
-                        normalflavour.Add(new Flavour("Chocolate", false, 1));
-                        normalflavour.Add(new Flavour("Strawberry", false, 1));
-
-                        List<Flavour> premiumflavour = new List<Flavour>();
-                        premiumflavour.Add(new Flavour("Durian", true, 1));
-                        premiumflavour.Add(new Flavour("Ube", true, 1));
-                        premiumflavour.Add(new Flavour("Sea Salt", true, 1));
+                        List<string> normalFlavor = new List<string>() { "vanilla", "chocolate", "strawberry" };
+                        List<string> premiumFlavor = new List<string>() { "durian", "ube", "sea salt" };
 
 
                         Console.WriteLine("Please enter your option (Cup, Cone or Waffle) : ");
@@ -217,10 +210,22 @@ while (true)
                         Console.WriteLine("Please enter your Ice Cream Flavour: ");
                         string flavourType = Console.ReadLine();
 
+                        bool isPremiumFlavour = false;
+
+                        foreach (string premiumFlavour in premiumFlavor)
+                        {
+                            if (flavourType.ToLower() == premiumFlavour.ToLower())
+                            {
+                                isPremiumFlavour = true;
+                                Console.WriteLine($"{premiumFlavour}");
+                                break;
+                            }
+                        }
+
 
                         Console.WriteLine("Please enter the quantity: ");
                         int quantity = Convert.ToInt32(Console.ReadLine());
-                        Flavour flavour1 = new Flavour(flavourType,quantity);
+                        Flavour flavour1 = new Flavour(flavourType,isPremiumFlavour,quantity);
                         Console.WriteLine("Please enter your Toppings: ");
                         string toppings = Console.ReadLine();
                         Topping topping1 = new Topping(toppings);
