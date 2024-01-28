@@ -34,13 +34,14 @@ namespace PRG2_Assignment
 
         public Order()
         {
-            IceCreamList = new List<IceCream>();
+            
         }
 
         public Order(int id, DateTime timeReceived)
         {
             Id=id;
             TimeReceived=timeReceived;
+            IceCreamList = new List<IceCream>();
         }
 
         public void ModifyIceCream(int index, IceCream ModifiedIceCream)
@@ -52,7 +53,7 @@ namespace PRG2_Assignment
 
         }
 
-        public void AddIceCream(IceCream? icecream)
+        public void AddIceCream(IceCream icecream)
         {
             IceCreamList.Add(icecream);
 

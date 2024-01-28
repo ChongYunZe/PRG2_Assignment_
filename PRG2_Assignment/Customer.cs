@@ -59,10 +59,7 @@ namespace PRG2_Assignment
         {
             return Dob.Month == DateTime.Now.Month && Dob.Day == DateTime.Now.Day;
         }
-        public void AddOrderHistory()
-        {
-
-        }
+        
 
         public override string ToString()
         {
