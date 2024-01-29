@@ -77,6 +77,34 @@ void ReadingCustomerFile()
     }
 }
 
+void OrderHistory(int memberID)
+{
+    using (StreamReader srOrders = new StreamReader("orders.csv"))
+    {
+        string? sOrder = srOrders.ReadLine(); //Reading the headings
+
+        if (sOrder != null)
+        {
+            while ((sOrder = srOrders.ReadLine()) != null)
+            {
+                string[] valuesOrders = sOrder.Split(",");
+                Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
+                orderDict[Convert.ToInt32(valuesOrders[1])] = orders;
+                for (int i = 0; i < customerlist.Count; i++)
+                {
+                    if (customerlist[i].Memberid == memberID)
+                    {
+                        customerlist[i].OrderHistory.Add(orders);
+                    }
+                }
+                            
+            }
+        }
+    }
+
+
+    
+
 
 while (true)
 {
@@ -172,7 +200,7 @@ while (true)
             //Prompting user inputs
             Console.Write("Please select a customer (Enter Member ID): ");
             int customeridInput = Convert.ToInt32(Console.ReadLine());
-            Order newOrder = new Order(customeridInput, DateTime.Now);
+            Order newOrder = new Order(0, DateTime.Now);
             Console.Write("Enter an option: ");
             string optionInput = Console.ReadLine();
             Console.Write("Enter number of scoops (1-3): ");
@@ -448,35 +476,46 @@ while (true)
         }
         else if (option == 5)
         {
-
-            
-                using (StreamReader srOrders = new StreamReader("orders.csv"))
-                {
-                    string? sOrders = srOrders.ReadLine();
-                    if (sOrders != null)
-                    {
-                        while ((sOrders = srOrders.ReadLine()) != null)
-                        {
-                            string[] valuesOrders = sOrders.Split(",");
-                            Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
-                            orderDict[Convert.ToInt32(valuesOrders[1])] = orders;
-                            Customer customer = new Customer();
-                            customer.OrderHistory.Add(orders);
-                        }                        
-                    }                    
-                }
-
-
-            /*ReadingCustomerFile();
-            Console.Write("Please select a customer: ");
+            ReadingCustomerFile();
+            Console.Write("Please select a customer (Enter Member ID): ");
             int customerInput = Convert.ToInt32(Console.ReadLine());
+            int customerIndex = 0;
             for (int i = 0; i < customerlist.Count; i++)
             {
                 if (customerInput == Convert.ToInt32(customerlist[i].Memberid))
                 {
-
+                    customerIndex = i;
+                    break;
                 }
-            }*/
+            }
+            Console.WriteLine("============= Current ==============");
+            if (customerlist[customerIndex].Rewards.Tier.ToLower() == "gold")
+            {
+                foreach (Order order in goldQueue)
+                {
+                    if (customerlist[customerIndex].Memberid == customerInput)
+                    {
+                        Console.WriteLine(order);
+                    }
+                    
+                }
+            }
+            else
+            {
+                foreach (Order order in regularQueue)
+                {
+                    if (customerlist[customerIndex].Memberid == customerInput)
+                    {
+                        Console.WriteLine(order);
+                    }
+                }
+            }
+
+            Console.WriteLine();
+
+            OrderHistory(customerInput);
+
+            Console.WriteLine("============== Past ================");
         }
 
         else if (option > 6)
