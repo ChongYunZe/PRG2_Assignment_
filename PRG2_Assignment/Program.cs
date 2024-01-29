@@ -97,20 +97,20 @@ void OrderHistory(int memberID)
                         customerlist[i].OrderHistory.Add(orders);
                     }
                 }
-                            
+
             }
         }
     }
 
 
-    
 
 
-while (true)
-{
-    try
+
+    while (true)
     {
-        DisplayMenu(); //Displays the Menu
+        try
+        {
+            DisplayMenu(); //Displays the Menu
             if (option == 0)
             {
                 break;
@@ -370,7 +370,7 @@ while (true)
 
 
 
-            
+
 
 
 
@@ -488,63 +488,64 @@ while (true)
 
                 }
             }*/
-        }
-        else if (option == 5)
-        {
-            ReadingCustomerFile();
-            Console.Write("Please select a customer (Enter Member ID): ");
-            int customerInput = Convert.ToInt32(Console.ReadLine());
-            int customerIndex = 0;
-            for (int i = 0; i < customerlist.Count; i++)
+
+            else if (option == 5)
             {
-                if (customerInput == Convert.ToInt32(customerlist[i].Memberid))
+                ReadingCustomerFile();
+                Console.Write("Please select a customer (Enter Member ID): ");
+                int customerInput = Convert.ToInt32(Console.ReadLine());
+                int customerIndex = 0;
+                for (int i = 0; i < customerlist.Count; i++)
                 {
-                    customerIndex = i;
-                    break;
-                }
-            }
-            Console.WriteLine("============= Current ==============");
-            if (customerlist[customerIndex].Rewards.Tier.ToLower() == "gold")
-            {
-                foreach (Order order in goldQueue)
-                {
-                    if (customerlist[customerIndex].Memberid == customerInput)
+                    if (customerInput == Convert.ToInt32(customerlist[i].Memberid))
                     {
-                        Console.WriteLine(order);
-                    }
-                    
-                }
-            }
-            else
-            {
-                foreach (Order order in regularQueue)
-                {
-                    if (customerlist[customerIndex].Memberid == customerInput)
-                    {
-                        Console.WriteLine(order);
+                        customerIndex = i;
+                        break;
                     }
                 }
+                Console.WriteLine("============= Current ==============");
+                if (customerlist[customerIndex].Rewards.Tier.ToLower() == "gold")
+                {
+                    foreach (Order order in goldQueue)
+                    {
+                        if (customerlist[customerIndex].Memberid == customerInput)
+                        {
+                            Console.WriteLine(order);
+                        }
+
+                    }
+                }
+                else
+                {
+                    foreach (Order order in regularQueue)
+                    {
+                        if (customerlist[customerIndex].Memberid == customerInput)
+                        {
+                            Console.WriteLine(order);
+                        }
+                    }
+                }
+
+                Console.WriteLine();
+
+                OrderHistory(customerInput);
+
+                Console.WriteLine("============== Past ================");
             }
 
-            Console.WriteLine();
+            else if (option > 6)
+            {
+                Console.WriteLine("Please enter an option from 0 to 6");
 
-            OrderHistory(customerInput);
-
-            Console.WriteLine("============== Past ================");
+            }
         }
 
-        else if (option > 6)
+        catch (FormatException ex)
         {
-            Console.WriteLine("Please enter an option from 0 to 6");
-
+            Console.WriteLine(ex.Message);
         }
-    }
 
-    catch (FormatException ex)
-    {
-        Console.WriteLine(ex.Message);
     }
-
 }
 
 //else if (option == 2)
