@@ -112,10 +112,10 @@ while (true)
     try
     {
         DisplayMenu(); //Displays the Menu
-            if (option == 0)
-            {
-                break;
-            }
+        if (option == 0)
+        {
+            break;
+        }
 
         else if (option == 1)
         {
@@ -488,8 +488,8 @@ while (true)
 
 
                 }
-            }*/
-        }
+            }
+        }*/
         else if (option == 5)
         {
             ReadingCustomerFile();
@@ -546,7 +546,7 @@ while (true)
             Console.WriteLine(ex.Message);
         }
 
-    }
+    
 }
 
 //else if (option == 2)
