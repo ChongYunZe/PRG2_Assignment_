@@ -31,8 +31,8 @@ void DisplayMenu()
     Console.WriteLine("[4] Create a customer's order");
     Console.WriteLine("[5] Display order details of a customer");
     Console.WriteLine("[6] Modify order details");
-    Console.WriteLine("[a] Process an order and checkout");
-    Console.WriteLine("[b] Display monthly charged amounts breakdown & total charged amounts for the year");
+    Console.WriteLine("[7] Process an order and checkout");
+    Console.WriteLine("[8] Display monthly charged amounts breakdown & total charged amounts for the year");
     Console.WriteLine("[0] Exit");
     Console.WriteLine("------------------------------------------");
     Console.Write("Please enter an option: ");
@@ -134,26 +134,36 @@ while (true)
         {
             try
             {
-                Console.WriteLine("Please enter your name: ");
-                string customername = Console.ReadLine();
-                Console.WriteLine("Please enter your id: ");
-                int customermemberid = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Please enter your date of birth (dob): ");
-                //DateTime.Parse makes sure the date entered is correctly read
-                DateTime customerdob = DateTime.Parse(Console.ReadLine());
-
-                //creating customer object
-                Customer newcustomer = new Customer(customername, customermemberid, customerdob);
-                PointCard pointCard = new PointCard();
-                newcustomer.Rewards = pointCard;
-
-                using (StreamWriter sw = new StreamWriter("customers.csv", true))
+                while (true)
                 {
-                    sw.WriteLine($"{customername},{customermemberid},{customerdob:dd/MM/yyyy}");
-                }
+                    Console.WriteLine("Please enter your name: ");
+                    string customername = Console.ReadLine();
+                    Console.WriteLine("Please enter your id (6 digits): ");
+                    int customermemberid = Convert.ToInt32(Console.ReadLine());
+                    if (customermemberid !> 000000 && customermemberid > 999999)
+                    {
+                        Console.WriteLine("Please enter an id that is 6 digits in betweeen 000000 and 999999");
+                        break;
+                    }
+                    Console.WriteLine("Please enter your date of birth (dob): ");
+                    //DateTime.Parse makes sure the date entered is correctly read
+                    DateTime customerdob = DateTime.Parse(Console.ReadLine());
 
-                // Displaying registration status
-                Console.WriteLine("Customer registered successfully!");
+                    //creating customer object
+                    Customer newcustomer = new Customer(customername, customermemberid, customerdob);
+                    PointCard pointCard = new PointCard();
+                    newcustomer.Rewards = pointCard;
+
+                    using (StreamWriter sw = new StreamWriter("customers.csv", true))
+                    {
+                        sw.WriteLine($"{customername},{customermemberid},{customerdob:dd/MM/yyyy},{"Ordinary"},{pointCard.Points},{pointCard.PunchCard}");
+                    }
+
+                    // Displaying registration status
+                    Console.WriteLine("Customer registered successfully!");
+                    break;
+                }
+                
             }
 
             catch (FileNotFoundException ex)
@@ -168,162 +178,166 @@ while (true)
         {
 
             ReadingCustomerFile(); //Method to read the customer.csv file
-            
             //Prompting user inputs
             Console.Write("Please select a customer (Enter Member ID): ");
             int customeridInput = Convert.ToInt32(Console.ReadLine());
-            Order newOrder = new Order(customeridInput, DateTime.Now);
-            Console.Write("Enter an option: ");
-            string optionInput = Console.ReadLine();
-            Console.Write("Enter number of scoops (1-3): ");
-            int scoopInput = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Enter ice cream flavour: ");
-            string flavourInput = Console.ReadLine();
-            Console.Write("Enter quantity (1-3): ");
-            int quantityInput = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Enter ice cream topping: ");
-            string toppingInput = Console.ReadLine();
-
-            //Checking ice cream flavour
-            bool flavourPremium = false;
-            if (new[] { "durian", "ube", "sea salt" }.Contains(flavourInput.ToLower()))
+            while (true)
             {
-                flavourPremium = true;
-            }
-            else
-            {
-                flavourPremium = false;
-            }
-            Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
-            Topping newTopping = new Topping(toppingInput);
-
-            //Checking type of ice cream
-            
-            if (optionInput.ToLower() == "cone")
-            {
-                Console.Write("Dipped Ice Cream? [Y/N]: ");
-                string dippedInput = Console.ReadLine();
-
-                bool dippedBool = false;
-                if (dippedInput.ToUpper() == "Y")
-                {
-                    dippedBool = true;
-                }
-                else
-                {
-                    dippedBool = false;
-                }
-                
-
-                IceCream newIceCream = new Cone(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping }, dippedBool);
-                newOrder.AddIceCream(newIceCream);
-            }
-            else if (optionInput.ToLower() == "waffle")
-            {
-                Console.Write("Enter a waffle flavour: ");
-                string waffleflavourInput = Console.ReadLine();
-                IceCream newIceCream = new Waffle(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping }, waffleflavourInput);
-                newOrder.AddIceCream(newIceCream);
-            }
-            else if (optionInput.ToLower() == "cup")
-            {
-                IceCream newIceCream = new Cup(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping });
-                newOrder.AddIceCream(newIceCream);
-            }
-            else
-            {
-                Console.WriteLine("Invalid Option.");
-            }
-            
-
-
-            //User Input For Another Order
-            Console.Write("Would you like to another ice cream to the order? ");
-            string AddOrderInput = Console.ReadLine();
-            if (AddOrderInput.ToUpper() == "Y")
-            {
+                Order newOrder = new Order(customeridInput, DateTime.Now);
                 Console.Write("Enter an option: ");
-                string optionInput2 = Console.ReadLine();
+                string optionInput = Console.ReadLine();
                 Console.Write("Enter number of scoops (1-3): ");
-                int scoopInput2 = Convert.ToInt32(Console.ReadLine());
+                int scoopInput = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Enter ice cream flavour: ");
-                string flavourInput2 = Console.ReadLine();
+                string flavourInput = Console.ReadLine();
                 Console.Write("Enter quantity (1-3): ");
-                int quantityInput2 = Convert.ToInt32(Console.ReadLine());
+                int quantityInput = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Enter ice cream topping: ");
-                string toppingInput2 = Console.ReadLine();
+                string toppingInput = Console.ReadLine();
 
                 //Checking ice cream flavour
-                bool flavourPremium2 = false;
-                if (new[] { "durian", "ube", "sea salt" }.Contains(flavourInput2.ToLower()))
+                bool flavourPremium = false;
+                if (new[] { "durian", "ube", "sea salt" }.Contains(flavourInput.ToLower()))
                 {
-                    flavourPremium2 = true;
+                    flavourPremium = true;
                 }
                 else
                 {
-                    flavourPremium2 = false;
+                    flavourPremium = false;
                 }
-                Flavour newFlavour2 = new Flavour(flavourInput2, flavourPremium2, quantityInput2);
-                Topping newTopping2 = new Topping(toppingInput2);
+                Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
+                Topping newTopping = new Topping(toppingInput);
 
                 //Checking type of ice cream
 
-                if (optionInput2.ToLower() == "cone")
+                if (optionInput.ToLower() == "cone")
                 {
                     Console.Write("Dipped Ice Cream? [Y/N]: ");
-                    string dippedInput2 = Console.ReadLine();
+                    string dippedInput = Console.ReadLine();
 
-                    bool dippedBool2 = false;
-                    if (dippedInput2.ToUpper() == "Y")
+                    bool dippedBool = false;
+                    if (dippedInput.ToUpper() == "Y")
                     {
-                        dippedBool2 = true;
+                        dippedBool = true;
                     }
                     else
                     {
-                        dippedBool2 = false;
+                        dippedBool = false;
                     }
 
 
-                    IceCream newIceCream2 = new Cone(optionInput2, scoopInput2, new List<Flavour> { newFlavour2 }, new List<Topping> { newTopping2 }, dippedBool2);
-                    newOrder.AddIceCream(newIceCream2);
+                    IceCream newIceCream = new Cone(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping }, dippedBool);
+                    newOrder.AddIceCream(newIceCream);
                 }
-                else if (optionInput2.ToLower() == "waffle")
+                else if (optionInput.ToLower() == "waffle")
                 {
                     Console.Write("Enter a waffle flavour: ");
-                    string waffleflavourInput2 = Console.ReadLine();
-                    IceCream newIceCream2 = new Waffle(optionInput2, scoopInput2, new List<Flavour> { newFlavour2 }, new List<Topping> { newTopping2 }, waffleflavourInput2);
-                    newOrder.AddIceCream(newIceCream2);
+                    string waffleflavourInput = Console.ReadLine();
+                    IceCream newIceCream = new Waffle(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping }, waffleflavourInput);
+                    newOrder.AddIceCream(newIceCream);
                 }
-                else if (optionInput2.ToLower() == "cup")
+                else if (optionInput.ToLower() == "cup")
                 {
-                    IceCream newIceCream2 = new Cup(optionInput2, scoopInput2, new List<Flavour> { newFlavour2 }, new List<Topping> { newTopping2 });
-                    newOrder.AddIceCream(newIceCream2);
+                    IceCream newIceCream = new Cup(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping });
+                    newOrder.AddIceCream(newIceCream);
                 }
                 else
                 {
                     Console.WriteLine("Invalid Option.");
                 }
-            }
-            
 
 
-            //Checking customer membership
-            for (int i = 0; i < customerlist.Count; i++)
-            {
-                if (customerlist[i].Memberid == customeridInput)
+
+                //User Input For Another Order
+                Console.Write("Would you like to another ice cream to the order? ");
+                string AddOrderInput = Console.ReadLine();
+                if (AddOrderInput.ToUpper() == "Y")
                 {
-                    Customer c = customerlist[i];
-                    if (c.Rewards.Tier.ToLower() == "gold")
+                    Console.Write("Enter an option: ");
+                    string optionInput2 = Console.ReadLine();
+                    Console.Write("Enter number of scoops (1-3): ");
+                    int scoopInput2 = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Enter ice cream flavour: ");
+                    string flavourInput2 = Console.ReadLine();
+                    Console.Write("Enter quantity (1-3): ");
+                    int quantityInput2 = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Enter ice cream topping: ");
+                    string toppingInput2 = Console.ReadLine();
+
+                    //Checking ice cream flavour
+                    bool flavourPremium2 = false;
+                    if (new[] { "durian", "ube", "sea salt" }.Contains(flavourInput2.ToLower()))
                     {
-                        goldQueue.Enqueue(newOrder);
+                        flavourPremium2 = true;
                     }
                     else
                     {
-                        regularQueue.Enqueue(newOrder);
+                        flavourPremium2 = false;
+                    }
+                    Flavour newFlavour2 = new Flavour(flavourInput2, flavourPremium2, quantityInput2);
+                    Topping newTopping2 = new Topping(toppingInput2);
+
+                    //Checking type of ice cream
+
+                    if (optionInput2.ToLower() == "cone")
+                    {
+                        Console.Write("Dipped Ice Cream? [Y/N]: ");
+                        string dippedInput2 = Console.ReadLine();
+
+                        bool dippedBool2 = false;
+                        if (dippedInput2.ToUpper() == "Y")
+                        {
+                            dippedBool2 = true;
+                        }
+                        else
+                        {
+                            dippedBool2 = false;
+                        }
+
+
+                        IceCream newIceCream2 = new Cone(optionInput2, scoopInput2, new List<Flavour> { newFlavour2 }, new List<Topping> { newTopping2 }, dippedBool2);
+                        newOrder.AddIceCream(newIceCream2);
+                    }
+                    else if (optionInput2.ToLower() == "waffle")
+                    {
+                        Console.Write("Enter a waffle flavour: ");
+                        string waffleflavourInput2 = Console.ReadLine();
+                        IceCream newIceCream2 = new Waffle(optionInput2, scoopInput2, new List<Flavour> { newFlavour2 }, new List<Topping> { newTopping2 }, waffleflavourInput2);
+                        newOrder.AddIceCream(newIceCream2);
+                    }
+                    else if (optionInput2.ToLower() == "cup")
+                    {
+                        IceCream newIceCream2 = new Cup(optionInput2, scoopInput2, new List<Flavour> { newFlavour2 }, new List<Topping> { newTopping2 });
+                        newOrder.AddIceCream(newIceCream2);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Option.");
                     }
                 }
+
+
+
+                //Checking customer membership
+                for (int i = 0; i < customerlist.Count; i++)
+                {
+                    if (customerlist[i].Memberid == customeridInput)
+                    {
+                        Customer c = customerlist[i];
+                        if (c.Rewards.Tier.ToLower() == "gold")
+                        {
+                            goldQueue.Enqueue(newOrder);
+                        }
+                        else
+                        {
+                            regularQueue.Enqueue(newOrder);
+                        }
+                    }
+                }
+                Console.WriteLine("Order has been made successfully.");
+                break;
             }
-            Console.WriteLine("Order has been made successfully.");
+            
 
 
 
