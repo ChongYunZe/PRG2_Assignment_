@@ -228,6 +228,35 @@ while (true)
                 int quantityInput = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Enter ice cream topping: ");
                 string toppingInput = Console.ReadLine();
+                if (scoopInput == 2)
+                {
+                    Console.Write("Enter ice cream flavour for your other scoop: ");
+                    string flavourInput2 = Console.ReadLine();
+                    
+                        
+                    
+
+                }
+                else if (scoopInput == 3)
+                {
+                    Console.WriteLine("Enter ice cream flavour for your other scoop: ");
+                    string flavourInput2 = Console.ReadLine();
+                    Console.WriteLine("Enter ice cream flavour for your other scoop: ");
+                    string flavourInput3 = Console.ReadLine();
+                    if (quantityInput == 1)
+                    {
+                        Console.Write("Enter quantity (1-2): ");
+                        int quantityInput2 = Convert.ToInt32(Console.ReadLine());
+
+                        if (quantityInput2 == 1)
+                        {
+                            Console.Write("Enter");
+                            int quantityInput3;
+                        }
+                    }
+
+                }
+                
 
                 //Checking ice cream flavour
                 bool flavourPremium = false;
