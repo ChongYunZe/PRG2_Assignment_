@@ -97,111 +97,111 @@ void OrderHistory(int memberID)
                         customerlist[i].OrderHistory.Add(orders);
                     }
                 }
-                            
+
             }
         }
     }
+}
 
 
-    
 
 
-while (true)
-{
+    while (true)
+    {
     try
     {
         DisplayMenu(); //Displays the Menu
-            if (option == 0)
+        if (option == 0)
+        {
+            break;
+        }
+
+        else if (option == 1)
+        {
+            try
             {
-                break;
+                ReadingCustomerFile();
+
             }
 
-            else if (option == 1)
+            catch (FileNotFoundException ex)
             {
-                try
-                {
-                    ReadingCustomerFile();
-
-                }
-
-                catch (FileNotFoundException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                Console.WriteLine(ex.Message);
             }
-            else if (option == 2)
+        }
+        else if (option == 2)
+        {
+            try
             {
-                try
+                Console.WriteLine("=============== Gold Queue ===============");
+                foreach (Order order in goldQueue)
                 {
-                    Console.WriteLine("=============== Gold Queue ===============");
-                    foreach (Order order in goldQueue)
-                    {
-                        Console.WriteLine(order);
-                    }
+                    Console.WriteLine(order);
+                }
 
-                    Console.WriteLine();
+                Console.WriteLine();
 
-                    Console.WriteLine("============= Regular Queue ==============");
-                    foreach (Order order in regularQueue)
-                    {
-                        Console.WriteLine(order);
-
-                    }
-
-
+                Console.WriteLine("============= Regular Queue ==============");
+                foreach (Order order in regularQueue)
+                {
+                    Console.WriteLine(order);
 
                 }
 
-                catch (FileNotFoundException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+
+
             }
 
-            else if (option == 3)
+            catch (FileNotFoundException ex)
             {
-                try
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        else if (option == 3)
+        {
+            try
+            {
+                while (true)
                 {
-                    while (true)
+                    Console.WriteLine("Please enter your name: ");
+                    string customername = Console.ReadLine();
+                    Console.WriteLine("Please enter your id (6 digits): ");
+                    int customermemberid = Convert.ToInt32(Console.ReadLine());
+                    if (customermemberid! > 000000 && customermemberid > 999999)
                     {
-                        Console.WriteLine("Please enter your name: ");
-                        string customername = Console.ReadLine();
-                        Console.WriteLine("Please enter your id (6 digits): ");
-                        int customermemberid = Convert.ToInt32(Console.ReadLine());
-                        if (customermemberid! > 000000 && customermemberid > 999999)
-                        {
-                            Console.WriteLine("Please enter an id that is 6 digits in betweeen 000000 and 999999");
-                            break;
-                        }
-                        Console.WriteLine("Please enter your date of birth (dob): ");
-                        //DateTime.Parse makes sure the date entered is correctly read
-                        DateTime customerdob = DateTime.Parse(Console.ReadLine());
-
-                        //creating customer object
-                        Customer newcustomer = new Customer(customername, customermemberid, customerdob);
-                        PointCard pointCard = new PointCard();
-                        newcustomer.Rewards = pointCard;
-
-                        using (StreamWriter sw = new StreamWriter("customers.csv", true))
-                        {
-                            sw.WriteLine($"{customername},{customermemberid},{customerdob:dd/MM/yyyy},{"Ordinary"},{pointCard.Points},{pointCard.PunchCard}");
-                        }
-
-                        // Displaying registration status
-                        Console.WriteLine("Customer registered successfully!");
+                        Console.WriteLine("Please enter an id that is 6 digits in betweeen 000000 and 999999");
                         break;
                     }
+                    Console.WriteLine("Please enter your date of birth (dob): ");
+                    //DateTime.Parse makes sure the date entered is correctly read
+                    DateTime customerdob = DateTime.Parse(Console.ReadLine());
 
+                    //creating customer object
+                    Customer newcustomer = new Customer(customername, customermemberid, customerdob);
+                    PointCard pointCard = new PointCard();
+                    newcustomer.Rewards = pointCard;
+
+                    using (StreamWriter sw = new StreamWriter("customers.csv", true))
+                    {
+                        sw.WriteLine($"{customername},{customermemberid},{customerdob:dd/MM/yyyy},{"Ordinary"},{pointCard.Points},{pointCard.PunchCard}");
+                    }
+
+                    // Displaying registration status
+                    Console.WriteLine("Customer registered successfully!");
+                    break;
                 }
-
-                catch (FileNotFoundException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
 
             }
 
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
+    
             else if (option == 4)
             {
 
@@ -370,7 +370,7 @@ while (true)
 
 
 
-            
+
 
 
 
@@ -488,7 +488,8 @@ while (true)
 
                 }
             }*/
-        }
+        
+        
         else if (option == 5)
         {
             ReadingCustomerFile();
