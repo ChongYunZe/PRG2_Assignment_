@@ -75,7 +75,7 @@ namespace PRG2_Assignment
 
         public override string ToString()
         {
-            return $"Id: {Id} Time Received: {TimeReceived} Time Fullfilled: {TimeFulfilled}";
+            return $"Id: {Id} Time Received: {TimeReceived} ";//Time Fullfilled: {TimeFulfilled}
         }
     }
 }

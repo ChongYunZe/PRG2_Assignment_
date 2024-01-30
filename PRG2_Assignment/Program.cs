@@ -18,7 +18,7 @@ using static System.Formats.Asn1.AsnWriter;
 int option;
 List<Customer> customerlist = new List<Customer>(); //From option 1
 Dictionary<string, Customer> customerdict = new Dictionary<string, Customer>(); //From option 4
-Dictionary<int ,Order> orderDict = new Dictionary<int, Order> (); //From option 2
+Dictionary<int ,Order> orderHistDict = new Dictionary<int, Order> (); //From option 2
 Queue<Order> goldQueue = new Queue<Order>();
 Queue<Order> regularQueue = new Queue<Order>();
 void DisplayMenu()
@@ -88,15 +88,60 @@ void OrderHistory(int memberID)
             while ((sOrder = srOrders.ReadLine()) != null)
             {
                 string[] valuesOrders = sOrder.Split(",");
-                Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
-                orderDict[Convert.ToInt32(valuesOrders[1])] = orders;
+                if (Convert.ToInt32(valuesOrders[1]) == memberID)
+                {
+                    Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
+                    Console.WriteLine(orders);
+                    Console.WriteLine("Time Fulfilled: {0}", valuesOrders[3]);
+                    Console.WriteLine();
+                    Console.WriteLine("Option: {0}", valuesOrders[4]);
+                    Console.WriteLine("Scoops: {0}", valuesOrders[5]);
+                    if (valuesOrders[4] == "Cone")
+                    {
+                        Console.WriteLine("Dipped: ", valuesOrders[6]);
+                    }
+                    else if (valuesOrders[4] == "Waffle")
+                    {
+                        Console.WriteLine("Waffle Flavour: ", valuesOrders[7]);
+                    }
+                    List<string>flavourHist = new List<string>();
+                    List<string>toppingHist = new List<string>();
+                    for (int i = 8; i< valuesOrders.Length; i++)
+                    {
+                        if (new[] { "durian", "ube", "sea salt", "vanilla", "chocolate", "strawberry"}.Contains(valuesOrders[i].ToLower()))
+                        {
+                            flavourHist.Add(valuesOrders[i]);
+                        }
+                        else if (new[] { "sprinkles", "mochi", "sago", "oreos"}.Contains(valuesOrders[i].ToLower()))
+                        {
+                            toppingHist.Add(valuesOrders[i]);
+                        }
+                    }
+                    Console.WriteLine();
+
+                    Console.WriteLine("-----Flavours-----");
+                    foreach (string flavour in flavourHist)
+                    {                        
+                        Console.WriteLine(flavour);
+                    }
+                    
+                    Console.WriteLine();    
+
+                    Console.WriteLine("-----Toppings-----");
+                    foreach (string topping in toppingHist)
+                    {                        
+                        Console.WriteLine(topping);
+                    }
+                }
+                /*Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
+                orderHistDict[Convert.ToInt32(valuesOrders[1])] = orders;
                 for (int i = 0; i < customerlist.Count; i++)
                 {
                     if (customerlist[i].Memberid == memberID)
                     {
                         customerlist[i].OrderHistory.Add(orders);
                     }
-                }
+                }*/
 
             }
         }
@@ -232,9 +277,9 @@ while (true)
                 {
                     Console.Write("Enter ice cream flavour for your other scoop: ");
                     string flavourInput2 = Console.ReadLine();
-                    
-                        
-                    
+
+
+
 
                 }
                 else if (scoopInput == 3)
@@ -256,7 +301,7 @@ while (true)
                     }
 
                 }
-                
+
 
                 //Checking ice cream flavour
                 bool flavourPremium = false;
@@ -522,7 +567,7 @@ while (true)
 
                 }
             }*/
-        }
+
         else if (option == 5)
         {
             ReadingCustomerFile();
@@ -538,7 +583,7 @@ while (true)
                 }
             }
             Console.WriteLine("============= Current ==============");
-            if (customerlist[customerIndex].Rewards.Tier.ToLower() == "gold")
+            if (customerlist[customerIndex].Rewards.Tier == "Gold")
             {
                 foreach (Order order in goldQueue)
                 {
@@ -559,12 +604,16 @@ while (true)
                     }
                 }
             }
+            
+
+
 
             Console.WriteLine();
 
-            OrderHistory(customerInput);
+            
 
             Console.WriteLine("============== Past ================");
+            OrderHistory(customerInput);
         }
 
         else if (option == 6)
@@ -584,7 +633,7 @@ while (true)
                 }
             }
 
-           
+
         }
 
         else if (option > 8)
@@ -592,125 +641,19 @@ while (true)
             Console.WriteLine("Please enter an option from 0 to 8");
 
         }
-        }
-
+    }
+    
         catch (FormatException ex)
         {
             Console.WriteLine(ex.Message);
         }
 
-    }
+    
 }
 
 
-//else if (option == 2)
-//{
-//    try
-//    {
-//        /*Console.WriteLine("=============== Gold Queue ===============");
-//        foreach(order in goldQueue)
-//        {
-//            Console.WriteLine(order);
-//        }
-//        Console.WriteLine("============= Regular Queue ==============");
-//        foreach (order in goldQueue)
-//        {
-//            Console.WriteLine(order);
-//        }*/
 
 
-//        using (StreamReader srOrders = new StreamReader("orders.csv"))
-//        {
-//            string? sOrders = srOrders.ReadLine();
-//            if (sOrders != null)
-//            {
-//                //string[] headingOrders = sOrders.Split(',');
-//                //Console.WriteLine("{0, -4} {1, -10} {2, -18} ", headingOrders[0], headingOrders[1], headingOrders[2]);
-
-//                while ((sOrders = srOrders.ReadLine()) != null)
-//                {
-//                    string[] valuesOrders = sOrders.Split(",");
-//                    Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
-//                    orderDict[Convert.ToInt32(valuesOrders[1])] = orders;
-//                    customer.OrderHistory.Add(Order)
-//                        }
-//                foreach (KeyValuePair<int, Order> kvp in orderDict)
-//                {
-//                    Console.WriteLine("{0, -4} {1, -10} {2, -18} ", kvp.Value.Id, kvp.Key, kvp.Value.TimeReceived);
-//                }
-
-
-//            }
-
-//        }
-
-//    }
-
-//    catch (FileNotFoundException ex)
-//    {
-//        Console.WriteLine(ex.Message);
-//    }
-//}
-
-//else if (option == 3)
-//{
-//    try
-//    {
-//        Console.WriteLine("Please enter your name: ");
-//        string customername = Console.ReadLine();
-//        Console.WriteLine("Please enter your id: ");
-//        int customermemberid = Convert.ToInt32(Console.ReadLine());
-//        Console.WriteLine("Please enter your date of birth (dob): ");
-//        //DateTime.Parse makes sure the date entered is correctly read
-//        DateTime customerdob = DateTime.Parse(Console.ReadLine());
-
-//        //creating customer object
-//        Customer newcustomer = new Customer(customername, customermemberid, customerdob);
-//        PointCard pointCard = new PointCard();
-//        newcustomer.Rewards = pointCard;
-
-//        using (StreamWriter sw = new StreamWriter("customers.csv", true))
-//        {
-//            sw.WriteLine($"{customername},{customermemberid},{customerdob:dd/MM/yyyy}");
-//        }
-
-//        // Displaying registration status
-//        Console.WriteLine("Customer registered successfully!");
-//    }
-
-//    catch (FileNotFoundException ex)
-//    {
-//        Console.WriteLine(ex.Message);
-//    }
-
-
-//}
-
-//else if (option == 4)
-//{
-//    ReadingCustomerFile(); //Method to read the customer.csv file
-//    Console.WriteLine("Please select a customer: ");
-//    string customer = Console.ReadLine();
-
-
-//}
-
-//else if (option == 5)
-//{
-//    ReadingCustomerFile();
-//    Console.Write("Please select a customer: ");
-//    int customerInput = Convert.ToInt32(Console.ReadLine());
-//    for (int i = 0; i < customerlist.Count; i++)
-//    {
-//        if (customerInput == Convert.ToInt32(customerlist[i].Memberid))
-//        {
-
-//        }
-//    }
-    
-
-//    //   customer.OrderHistory.Add(Order)
-//}
 
 
 
