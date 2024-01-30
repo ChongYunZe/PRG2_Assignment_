@@ -68,9 +68,35 @@ namespace PRG2_Assignment
 
         }
 
-        public double CalculateTotal()
+        public double CalculateTotal(Customer customer)
         {
-            return 1;
+            double total = 0;
+
+            foreach (IceCream iceCream in IceCreamList)
+            {
+                total += iceCream.CalculatePrice();
+            }
+            if (customer.IsBirthday())
+            {
+                double maxPrice = 0;
+
+                // Iterate through each ice cream to find the most expensive one
+                foreach (IceCream icecream in IceCreamList)
+                {
+                    double iceCreamPrice = icecream.CalculatePrice();
+
+                    // Update maxPrice if the current ice cream is more expensive
+                    if (iceCreamPrice > maxPrice)
+                    {
+                        maxPrice = iceCreamPrice;
+                    }
+                }
+
+                // Subtract the price of the most expensive ice cream from the total
+                total -= maxPrice;
+            }
+
+            return total;
         }
 
         public override string ToString()

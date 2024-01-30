@@ -795,8 +795,8 @@ while (true)
         }
         else if (option == 7)
         {
-            Order currentOrder = null;
-            Customer selectedcustomer = null;
+            /*Order currentOrder = new Order();
+            Customer selectedcustomer = new Customer();
             
             if (goldQueue.Count > 0)
             {
@@ -842,7 +842,85 @@ while (true)
 
                 if (selectedcustomer.IsBirthday() == true)
                 {
-                    currentOrder.CalculateTotal();
+                    double totalprice = currentOrder.CalculateTotal();
+                    Console.WriteLine(totalprice);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No orders available.");
+            }*/
+            Order currentOrder = null;
+
+            if (goldQueue.Count > 0)
+            {
+                currentOrder = goldQueue.Dequeue();
+            }
+            else if (regularQueue.Count > 0)
+            {
+                currentOrder = regularQueue.Dequeue();
+            }
+
+            if (currentOrder != null)
+            {
+                Customer selectedcustomer = null;
+
+                
+                foreach (Customer customer in customerlist)
+                {
+                    if (customer.CurrentOrder == currentOrder)
+                    {
+                        selectedcustomer = customer;
+                        break; // Exit the loop once a matching customer is found
+                    }
+                }
+
+                if (selectedcustomer != null)
+                {
+                    Console.WriteLine("Ice Creams in the Order:");
+                    foreach (IceCream icecream in currentOrder.IceCreamList)
+                    {
+                        Console.WriteLine("Option: {0}", icecream.Option);
+                        Console.WriteLine("Scoops: {0}", icecream.Scoops);
+
+                        if (icecream is Cone)
+                        {
+                            Cone icecreamCone = (Cone)icecream;
+                            Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
+                        }
+                        else if (icecream is Waffle)
+                        {
+                            Waffle icecreamWaffle = (Waffle)icecream;
+                            Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+                        }
+
+                        Console.WriteLine("----- Flavour(s) -----");
+                        foreach (Flavour flavour in icecream.Flavours)
+                        {
+                            Console.WriteLine("Type: {0}  Quantity: {1}", flavour.Type, flavour.Quantity);
+                        }
+
+                        Console.WriteLine("----- Topping(s) -----");
+                        foreach (Topping topping in icecream.Toppings)
+                        {
+                            Console.WriteLine(topping.Type);
+                        }
+                    }
+
+                    double totalbill = currentOrder.CalculateTotal(selectedcustomer);
+                    Console.WriteLine($"Total Bill Amount: {totalbill.ToString("F2")}");
+                    Console.WriteLine($"Membership Status: {selectedcustomer.Rewards.Tier}  Points: {selectedcustomer.Rewards.Points}");
+
+                    if (selectedcustomer.IsBirthday())
+                    {
+                        Console.WriteLine("It is your birthday! The expensive ice cream would be free!");
+                        double birthdayTotal = currentOrder.CalculateTotal(selectedcustomer);
+                        Console.WriteLine($"Total Bill Amount on Birthday: {birthdayTotal.ToString("F2")}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Error: Customer not found for the order.");
                 }
             }
             else
@@ -863,10 +941,10 @@ while (true)
         }
     }
 
-        catch (FormatException ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+    catch (FormatException ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 
  }
 
