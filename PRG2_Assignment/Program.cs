@@ -786,8 +786,6 @@ while (true)
             {
                 Console.Write("Select an ice cream to modify (Enter Order ID): ");
                 int modifyInput = Convert.ToInt32(Console.ReadLine());
-
-                if (selectedcustomer.Rewards.Tier == "Gold") ;
             }
             
 
