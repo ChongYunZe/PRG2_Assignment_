@@ -43,8 +43,19 @@ namespace PRG2_Assignment
             }
             
             double toppingPrice = Toppings.Count; 
-            price += toppingPrice; 
+            price += toppingPrice;
+
+            foreach (Flavour flavour in Flavours)
+            {
+                if (flavour.Premium)
+                {
+                    price += 2 * flavour.Quantity; // Add $2 for each premium flavor per scoop
+                }
+            }
+
             return price;
+
+
         }
         public override string ToString()
         {
