@@ -140,6 +140,23 @@ void OrderHistory(int memberID)
     }
 }
 
+bool CheckFlavour(List<string> flavourlist)
+{
+    for (int i = 0; i < flavourlist.Count; i++)
+    {
+        
+        if (new[] { "durian", "ube", "sea salt" }.Contains(flavourlist[i].ToLower()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+    return false;
+}
 
 
 
@@ -267,7 +284,8 @@ while (true)
 
                 List<string> flavourlist = new List<string>();
                 List<string> toppingslist = new List<string>();
-
+                List<Flavour> FlavourObject = new List<Flavour>();
+                List<Topping> ToppingObject = new List<Topping>();
 
 
                 Order newOrder = new Order(customeridInput, DateTime.Now);
@@ -283,7 +301,10 @@ while (true)
                 string flavourInput = Console.ReadLine();
                 if (scoopInput == 1)
                 {
-                    
+
+                    bool flavourPremium = CheckFlavour(flavourlist);
+
+                    Flavour newFlavour = new Flavour(flavourInput, flavourPremium, scoopInput);
                     flavourlist.Add(flavourInput);
                     
 
@@ -296,6 +317,10 @@ while (true)
                     int quantityInput = Convert.ToInt32(Console.ReadLine());
                     if (quantityInput < scoopInput)
                     {
+
+                        bool flavourPremium = CheckFlavour(flavourlist);
+
+                        Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
                         Console.Write("Enter ice cream flavour for scoop 2: ");
                         string flavourInput2 = Console.ReadLine();
                         flavourlist.Add(flavourInput2);
@@ -308,6 +333,10 @@ while (true)
                     int quantityInput = Convert.ToInt32(Console.ReadLine());
                     while (quantityInput < scoopInput)
                     {
+
+                        bool flavourPremium = CheckFlavour(flavourlist);
+
+                        Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
                         Console.WriteLine("Enter ice cream flavour for scoop 2: ");
                         string flavourInput2 = Console.ReadLine();
                         flavourlist.Add(flavourInput2);
@@ -336,7 +365,9 @@ while (true)
                 {
                     Console.Write("Enter ice cream topping: ");
                     string toppingInput = Console.ReadLine();
-                    toppingslist.Add(toppingInput);
+                    Topping newTopping = new Topping(toppingInput);
+                    ToppingObject.Add(newTopping);
+
 
 
 
@@ -354,7 +385,9 @@ while (true)
                     flavourPremium = false;
                 }
                 Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
-                Topping newTopping = new Topping(toppingInput);
+                Topping newTopping = new Topping(toppingInput);*/
+
+                
 
                 //Checking type of ice cream
 
@@ -374,25 +407,25 @@ while (true)
                     }
 
 
-                    IceCream newIceCream = new Cone(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping }, dippedBool);
+                    IceCream newIceCream = new Cone(optionInput, scoopInput,FlavourObject ,ToppingObject , dippedBool);
                     newOrder.AddIceCream(newIceCream);
                 }
                 else if (optionInput.ToLower() == "waffle")
                 {
                     Console.Write("Enter a waffle flavour: ");
                     string waffleflavourInput = Console.ReadLine();
-                    IceCream newIceCream = new Waffle(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping }, waffleflavourInput);
+                    IceCream newIceCream = new Waffle(optionInput, scoopInput, FlavourObject, ToppingObject, waffleflavourInput);
                     newOrder.AddIceCream(newIceCream);
                 }
                 else if (optionInput.ToLower() == "cup")
                 {
-                    IceCream newIceCream = new Cup(optionInput, scoopInput, new List<Flavour> { newFlavour }, new List<Topping> { newTopping });
+                    IceCream newIceCream = new Cup(optionInput, scoopInput,FlavourObject, ToppingObject);
                     newOrder.AddIceCream(newIceCream);
                 }
                 else
                 {
                     Console.WriteLine("Invalid Option.");
-                }*/
+                }
 
 
 
