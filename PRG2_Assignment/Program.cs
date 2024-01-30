@@ -436,6 +436,7 @@ while (true)
                         {
                             regularQueue.Enqueue(newOrder);
                         }
+                        customerlist[i].CurrentOrder = newOrder;
                     }
                 }
                 Console.WriteLine("Order has been made successfully.");
@@ -529,6 +530,26 @@ while (true)
 
                 }
             }
+            //Still need to print out all ice cream details here ^^^
+
+            Console.WriteLine();
+
+            Console.WriteLine("----------Modify Order Details-----------");
+            Console.WriteLine("[1] Modify ice cream object");
+            Console.WriteLine("[2] Add new ice cream object to order");
+            Console.WriteLine("[3] Delete ice cream object from order");
+            Console.WriteLine("-----------------------------------------");
+            Console.Write("Enter an option: ");
+            int optionInput = Convert.ToInt32(Console.ReadLine());
+
+            if (optionInput == 1)
+            {
+                Console.Write("Select an ice cream to modify (Enter Order ID): ");
+                int modifyInput = Convert.ToInt32(Console.ReadLine());
+
+                if (selectedcustomer.Rewards.Tier == "Gold") ;
+            }
+            
 
 
         }
