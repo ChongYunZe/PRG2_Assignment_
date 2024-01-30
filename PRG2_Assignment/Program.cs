@@ -540,7 +540,7 @@ while (true)
             }
         }
 
-
+        
         
         else if (option == 5)
         {
@@ -573,6 +573,18 @@ while (true)
                                 Console.WriteLine("Option: {0}", icecream.Option);
                                 Console.WriteLine("Scoops: {0}", icecream.Scoops);
 
+                                if (icecream is Cone)
+                                {
+                                    Cone icecreamCone = (Cone)icecream;
+                                    Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
+                                }
+                                else if (icecream is Waffle)
+                                {
+                                    Waffle icecreamWaffle = (Waffle)icecream;
+                                    Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+                                }
+
+
                                 Console.WriteLine("----- Flavour(s) -----");
                                 foreach (Flavour flavour in icecream.Flavours)
                                 {
@@ -604,6 +616,18 @@ while (true)
                             {
                                 Console.WriteLine("Option: {0}", icecream.Option);
                                 Console.WriteLine("Scoops: {0}", icecream.Scoops);
+
+                                if (icecream is Cone)
+                                {
+                                    Cone icecreamCone = (Cone)icecream;
+                                    Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
+                                }
+                                else if (icecream is Waffle)
+                                {
+                                    Waffle icecreamWaffle = (Waffle)icecream;
+                                    Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+                                }
+
 
                                 Console.WriteLine("----- Flavour(s) -----");
                                 foreach (Flavour flavour in icecream.Flavours)
@@ -650,7 +674,103 @@ while (true)
 
                 }
             }
-            //Still need to print out all ice cream details here ^^^
+            int customerIndex = 0;
+            for (int i = 0; i < customerlist.Count; i++)
+            {
+                if (customerInput == Convert.ToInt32(customerlist[i].Memberid))
+                {
+                    customerIndex = i;
+                    break;
+                }
+            }
+            if (customerlist[customerIndex].Rewards.Tier == "Gold")
+            {
+                foreach (Order order in goldQueue)
+                {
+                    if (customerlist[customerIndex].Memberid == customerInput)
+                    {
+                        Console.WriteLine(order);
+                        foreach (Order orders in goldQueue)
+                        {
+
+                            foreach (IceCream icecream in orders.IceCreamList)
+                            {
+                                Console.WriteLine("Option: {0}", icecream.Option);
+                                Console.WriteLine("Scoops: {0}", icecream.Scoops);
+
+                                if (icecream is Cone)
+                                {
+                                    Cone icecreamCone = (Cone)icecream;
+                                    Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
+                                }
+                                else if (icecream is Waffle)
+                                {
+                                    Waffle icecreamWaffle = (Waffle)icecream;
+                                    Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+                                }
+
+
+                                Console.WriteLine("----- Flavour(s) -----");
+                                foreach (Flavour flavour in icecream.Flavours)
+                                {
+                                    Console.WriteLine("Type: {0}  Quantity: {1}", flavour.Type, flavour.Quantity);
+                                }
+
+                                Console.WriteLine("----- Topping(s) -----");
+                                foreach (Topping topping in icecream.Toppings)
+                                {
+                                    Console.WriteLine(topping.Type);
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                foreach (Order order in regularQueue)
+                {
+                    if (customerlist[customerIndex].Memberid == customerInput)
+                    {
+                        Console.WriteLine(order);
+                        foreach (Order orders in regularQueue)
+                        {
+
+                            foreach (IceCream icecream in orders.IceCreamList)
+                            {
+                                Console.WriteLine("Option: {0}", icecream.Option);
+                                Console.WriteLine("Scoops: {0}", icecream.Scoops);
+
+                                if (icecream is Cone)
+                                {
+                                    Cone icecreamCone = (Cone)icecream;
+                                    Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
+                                }
+                                else if (icecream is Waffle)
+                                {
+                                    Waffle icecreamWaffle = (Waffle)icecream;
+                                    Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+                                }
+
+
+                                Console.WriteLine("----- Flavour(s) -----");
+                                foreach (Flavour flavour in icecream.Flavours)
+                                {
+                                    Console.WriteLine("Type: {0}  Quantity: {1}", flavour.Type, flavour.Quantity);
+                                }
+
+                                Console.WriteLine("----- Topping(s) -----");
+                                foreach (Topping topping in icecream.Toppings)
+                                {
+                                    Console.WriteLine(topping.Type);
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
 
             Console.WriteLine();
 
