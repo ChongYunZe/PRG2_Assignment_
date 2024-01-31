@@ -898,9 +898,9 @@ while (true)
                         icListIndex = ic;
                     }
                 }
-                Console.WriteLine(icecream[icListIndex].Option + icecream[icListIndex].Scoops);
+                
                 orderObject.ModifyIceCream(icListIndex);
-                Console.WriteLine(icecream[icListIndex].Option + icecream[icListIndex].Scoops);
+                
 
             }
 
@@ -1076,9 +1076,35 @@ while (true)
             }
             else if (optionInput == 3)
             {
-                /*Console.WriteLine("Select ice cream to delete: ");
-                int index = Convert.ToInt32(Console.ReadLine());
-                selectedcustomer.CurrentOrder.DeleteIceCream(index - 1); */
+                //Console.WriteLine("Select ice cream to delete: ");
+                //int index = Convert.ToInt32(Console.ReadLine());
+                //selectedcustomer.CurrentOrder.DeleteIceCream(index - 1); 
+
+                Console.Write("Select an ice cream to remove: ");
+                int modifyInput = Convert.ToInt32(Console.ReadLine());
+                Order orderObject = OrderDict[customerInput];
+                List<IceCream> icecream = IceCreamOrderDict[orderObject];
+
+                //Finding index of orignal ice cream object
+                int icListIndex = 0;
+                for (int ic = 0; ic < orderObject.IceCreamList.Count; ic++)
+                {
+                    if (orderObject.IceCreamList[ic] == icecream[modifyInput - 1])
+                    {
+                        icListIndex = ic;
+                    }
+                }
+
+                if (icecream.Count > 1)
+                {
+                    orderObject.DeleteIceCream(icListIndex);
+                    icecream.RemoveAt(modifyInput - 1);
+                }
+                else
+                {
+                    Console.WriteLine("You need to have at least one ice cream in the order.");
+                }
+
             }
             else
             {
