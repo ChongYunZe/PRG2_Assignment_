@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Xml.Linq;
 using static System.Formats.Asn1.AsnWriter;
 using System.Globalization;
+using System.Collections.Generic;
 //Daniel --> Features 1, 3, 4
 //YunZe --> Features 2, 5, 6
 
@@ -101,6 +102,7 @@ void OrderHistory(int memberID)
                 if (Convert.ToInt32(valuesOrders[1]) == memberID)
                 {
                     Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
+                    orderHistDict[memberID] = orders;
                     Console.WriteLine(orders);
                     Console.WriteLine("Time Fulfilled: {0}", valuesOrders[3]);
                     Console.WriteLine();
@@ -142,6 +144,7 @@ void OrderHistory(int memberID)
                     {                        
                         Console.WriteLine(topping);
                     }
+                    
                 }
                 /*Order orders = new Order(Convert.ToInt32(valuesOrders[0]), Convert.ToDateTime(valuesOrders[2]));
                 orderHistDict[Convert.ToInt32(valuesOrders[1])] = orders;
@@ -195,15 +198,15 @@ void CheckFlavour2(string flavourInput, int quantity, List<string> flavourlist, 
     
 }
 
-static int CalculatePointsEarned(Order order, Customer customer)
-{
-    double totalAmount = order.CalculateTotal(customer);
+//static int CalculatePointsEarned(Order order, Customer customer)
+//{
+//    double totalAmount = order.CalculateTotal(customer, IceCreamOrderDict, OrderDict);
 
-    // Calculate points earned using the conversion rate (72% of the total amount paid)
-    int pointsEarned = (int)Math.Floor(totalAmount * 0.72);
+//    // Calculate points earned using the conversion rate (72% of the total amount paid)
+//    int pointsEarned = (int)Math.Floor(totalAmount * 0.72);
 
-    return pointsEarned;
-}
+//    return pointsEarned;
+//}
 
 
 
@@ -722,7 +725,19 @@ while (true)
 
             Console.WriteLine("============== Past ================");
             OrderHistory(customerInput);
-            orderHistDict.Add(customerInput,icecreamOrder);
+            Customer selectedcustomer = null;
+            if (selectedcustomer != null)
+            {
+                foreach (Order pastOrder in selectedcustomer.OrderHistory)
+                {
+                    Console.WriteLine($"Order ID: {pastOrder.Id}");
+                    Console.WriteLine($"Time Fulfilled: {pastOrder.TimeFulfilled}");
+                    // Display other details of the past order if needed
+                    Console.WriteLine();
+                }
+            }
+            
+
         }
 
         else if (option == 6)
@@ -1269,14 +1284,18 @@ while (true)
 
                         }
 
-                        double totalbill = currentOrder.CalculateTotal(selectedcustomer);
+                        double totalbill = currentOrder.CalculateTotal(selectedcustomer, IceCreamOrderDict, OrderDict);
+                        int pointsEarned = (int)Math.Floor(totalbill * 0.72);
+
+                        selectedcustomer.Rewards.AddPoints(pointsEarned);
+                        selectedcustomer.Rewards.UpdateTier(selectedcustomer);
                         Console.WriteLine($"Total Bill Amount: {totalbill.ToString("F2")}");
                         Console.WriteLine($"Membership Status: {selectedcustomer.Rewards.Tier}  Points: {selectedcustomer.Rewards.Points}");
 
                         if (selectedcustomer.IsBirthday())
                         {
                             Console.WriteLine("It is your birthday! The expensive ice cream would be free!");
-                            double birthdayTotal = currentOrder.CalculateTotal(selectedcustomer);
+                            double birthdayTotal = currentOrder.CalculateTotal(selectedcustomer, IceCreamOrderDict, OrderDict);
                             Console.WriteLine($"Total Bill Amount on Birthday: {birthdayTotal.ToString("F2")}");
                         }
 
@@ -1296,18 +1315,17 @@ while (true)
                         
 
                         // Calculate points earned using the conversion rate (72% of the total amount paid)
-                        int pointsEarned = (int)Math.Floor(totalbill * 0.72);
-
-                        selectedcustomer.Rewards.AddPoints(pointsEarned);
+                       
 
                         Console.WriteLine($"Punch card: {selectedcustomer.Rewards.PunchCard}");
                         Console.WriteLine($"Points earned: {pointsEarned}");
 
                         currentOrder.TimeFulfilled = DateTime.Now;
+                        
 
                         // Add the fulfilled order to the customer's order history
-                        selectedcustomer.OrderHistory.Add(currentOrder);
-                        selectedcustomer.Rewards.UpdateTier();
+                        //selectedcustomer.OrderHistory.Add(currentOrder);
+                        
 
 
                         // Thank the customer

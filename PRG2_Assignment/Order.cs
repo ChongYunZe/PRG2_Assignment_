@@ -310,7 +310,7 @@ namespace PRG2_Assignment
 
         }
 
-        public double CalculateTotal(Customer customer)
+        public double CalculateTotal(Customer customer, Dictionary<Order, List<IceCream>> IceCreamOrderDict, Dictionary<int, Order> OrderDict)
         {
             double total = 0;
 
@@ -327,8 +327,9 @@ namespace PRG2_Assignment
                 }
             }
 
-
-            foreach (IceCream iceCream in IceCreamList)
+            Order order = OrderDict[customer.Memberid];
+            List<IceCream> icecreams = IceCreamOrderDict[order];
+            foreach (IceCream iceCream in icecreams)
             {
                 total += iceCream.CalculatePrice();
             }
@@ -354,18 +355,23 @@ namespace PRG2_Assignment
 
            if (customer.Rewards.Tier == "Silver" || customer.Rewards.Tier == "Gold")
             {
-                // Prompt the user for the number of points they want to use
-                Console.Write("Enter the number of points you want to use to offset your final bill: ");
-                int pointsToUse = int.Parse(Console.ReadLine());
+                if (total != 0)
+                {
+                    // Prompt the user for the number of points they want to use
+                    Console.Write("Enter the number of points you want to use to offset your final bill: ");
+                    int pointsToUse = int.Parse(Console.ReadLine());
 
-                // Calculate the discount based on the entered points
-                /*double discount = Math.Min(total, pointsToUse);*/
-                double discount = pointsToUse * 0.02;
-                total -= discount;
+                    // Calculate the discount based on the entered points
+                    /*double discount = Math.Min(total, pointsToUse);*/
+                    double discount = pointsToUse * 0.02;
+                    total -= discount;
 
-                // Deduct the used points from the customer's points
-                customer.Rewards.Points -= pointsToUse;
+                    // Deduct the used points from the customer's points
+                    customer.Rewards.Points -= pointsToUse;
+                }
+                
             }
+           
 
 
             /*if (customer.Rewards.Points >= 50)

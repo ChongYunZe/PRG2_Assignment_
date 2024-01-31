@@ -39,7 +39,7 @@ namespace PRG2_Assignment
         public void AddPoints(int points)
         {
             PunchCard+= points;
-            UpdateTier();
+            Points += points;
         }
 
         public void RedeemPoints(int points)
@@ -47,7 +47,7 @@ namespace PRG2_Assignment
             if (Points >= points)
             {
                 Points -= points;
-                UpdateTier();
+                //UpdateTier();
             }
             else
             {
@@ -67,20 +67,20 @@ namespace PRG2_Assignment
 
         }
 
-        public void UpdateTier()
+        public void UpdateTier(Customer customer)
         {
             
-            if (Points >= 100)
+            if (customer.Rewards.Points >= 100)
             {
-                Tier = "Gold";
+                customer.Rewards.Tier = "Gold";
             }
-            else if (Points >= 50)
+            else if (customer.Rewards.Points >= 50)
             {
-                Tier = "Silver";
+                customer.Rewards.Tier = "Silver";
             }
             else
             {
-                Tier = "Ordinary";
+                customer.Rewards.Tier = "Ordinary";
             }
         }
         public override string ToString()
