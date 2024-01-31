@@ -786,7 +786,7 @@ while (true)
             {
                 Console.Write("Select an ice cream to modify: ");
                 int modifyInput = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine(selectedcustomer.CurrentOrder);
+                /*selectedcustomer.CurrentOrder.IceCreamList[modifyInput-1]*/;
                 /*Console.Write("Select ice cream to modify: ");
                 int iceCreamIndex = int.Parse(Console.ReadLine()) - 1;
                 IceCream iceCreamToModify = selectedcustomer.IceCreamList[iceCreamIndex];
@@ -952,14 +952,6 @@ while (true)
                         Console.WriteLine("Invalid Option.");
                     }
 
-
-
-                    //User Input For Another Order
-                    Console.Write("Would you like to another ice cream to the order? ");
-                    string AddOrderInput = Console.ReadLine();
-
-
-
                     //Checking customer membership
                     for (int i = 0; i < customerlist.Count; i++)
                     {
@@ -978,16 +970,15 @@ while (true)
                         }
                     }
                     Console.WriteLine("Order has been made successfully.");
-                    if (AddOrderInput.ToUpper() == "N")
-                    {
-                        break;
-                    }
+                    
 
                 }
             }
             else if (optionInput == 3)
             {
-
+                Console.WriteLine("Select ice cream to delete: ");
+                int index = Convert.ToInt32(Console.ReadLine());
+                selectedcustomer.CurrentOrder.DeleteIceCream(index - 1); 
             }
             else
             {
