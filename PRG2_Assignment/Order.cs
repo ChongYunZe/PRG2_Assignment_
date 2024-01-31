@@ -50,6 +50,7 @@ namespace PRG2_Assignment
             {
                 IceCreamList[index]=ModifiedIceCream;
             }*/
+            //same code as in option 4 with a few changes
             IceCream modifyIceCream = IceCreamList[index];
             List<string> flavourlist = new List<string>();
             List<string> toppingslist = new List<string>();
