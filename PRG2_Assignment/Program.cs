@@ -157,6 +157,51 @@ void OrderHistory(int memberID)
                 }*/
 
             }
+            if (OrderDict.ContainsKey(memberID))
+            {
+                Order icecreamOrder = OrderDict[memberID];
+                List<IceCream> icecreamDetails = IceCreamOrderDict[icecreamOrder];
+
+                
+
+                Console.WriteLine(icecreamOrder);
+                Console.WriteLine("Time Fulfilled: {0}", icecreamOrder.TimeFulfilled);
+
+                for (int i = 0; i < icecreamDetails.Count; i++)
+                {
+                    IceCream details = icecreamDetails[i];
+                    Console.WriteLine("Option: {0}", details.Option);
+                    Console.WriteLine("Scoops: {0}", details.Scoops);
+                    if (details is Cone)
+                    {
+                        Cone icecreamCone = (Cone)details;
+                        Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
+                    }
+                    else if (details is Waffle)
+                    {
+                        Waffle icecreamWaffle = (Waffle)details;
+                        Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+                    }
+                    Console.WriteLine();
+
+                    Console.WriteLine("----- Flavour(s) -----");
+                    foreach (Flavour f in details.Flavours)
+                    {
+                        Console.WriteLine("Type: {0} \tQuantity: {1}", f.Type, f.Quantity);
+                    }
+
+                    Console.WriteLine("----- Topping(s) -----");
+                    foreach (Topping t in details.Toppings)
+                    {
+                        Console.WriteLine(t.Type);
+                    }
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No past orders found for this customer.");
+            }
         }
     }
 }
@@ -1317,7 +1362,7 @@ while (true)
                         //}
 
                         // Add the fulfilled order to the customer's order history
-                        //selectedcustomer.OrderHistory.Add(currentOrder);
+                        selectedcustomer.OrderHistory.Add(currentOrder);
 
 
 
