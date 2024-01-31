@@ -44,14 +44,256 @@ namespace PRG2_Assignment
             IceCreamList = new List<IceCream>();
         }
 
-        public void ModifyIceCream(int index, IceCream ModifiedIceCream)
+        public void ModifyIceCream(int index)
         {
-            if (index>= 0 && index< IceCreamList.Count)
+            /*if (index>= 0 && index< IceCreamList.Count)
             {
                 IceCreamList[index]=ModifiedIceCream;
+            }*/
+            IceCream modifyIceCream = IceCreamList[index];
+            List<string> flavourlist = new List<string>();
+            List<string> toppingslist = new List<string>();
+            List<Flavour> FlavourObject = new List<Flavour>();
+            List<Topping> ToppingObject = new List<Topping>();
+
+            Console.Write("Enter an option (Cup, Cone or Waffle): ");
+            string newOption = Console.ReadLine();
+            modifyIceCream.Option = newOption;
+
+            Console.Write("Enter number of scoops (1-3): ");
+            int scoopInput = Convert.ToInt32(Console.ReadLine());
+            modifyIceCream.Scoops = scoopInput;
+            /*Console.Write("Enter quantity (1-3): ");
+            int quantityInput = Convert.ToInt32(Console.ReadLine());*/
+
+            Console.Write("Enter ice cream flavour: ");
+            string flavourInput = Console.ReadLine();
+            flavourlist.Add(flavourInput); //Changed position
+            if (scoopInput == 1)
+            {
+
+                /*bool flavourPremium = CheckFlavour(flavourlist);
+
+                Flavour newFlavour = new Flavour(flavourInput, flavourPremium, scoopInput);*/
+                int quantityInput = 1;
+                //flavourlist.Add(flavourInput);
+
+
+                for (int i = 0; i < flavourlist.Count; i++)
+                {
+                    bool flavourPremium;
+                    if (new[] { "durian", "ube", "sea salt" }.Contains(flavourlist[i].ToLower()))
+                    {
+                        flavourPremium = true;
+                    }
+                    else
+                    {
+                        flavourPremium = false;
+                    }
+                    Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
+                    FlavourObject.Add(newFlavour);
+                }
+
+
+
             }
 
+            else if (scoopInput == 2)
+            {
+                Console.Write("Enter quantity: ");
+                int quantityInput = Convert.ToInt32(Console.ReadLine());
+
+                for (int i = 0; i < flavourlist.Count; i++)
+                {
+                    bool flavourPremium;
+                    if (new[] { "durian", "ube", "sea salt" }.Contains(flavourlist[i].ToLower()))
+                    {
+                        flavourPremium = true;
+                    }
+                    else
+                    {
+                        flavourPremium = false;
+                    }
+                    Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
+                    FlavourObject.Add(newFlavour);
+                }
+
+                if (quantityInput < scoopInput)
+                {
+
+                    /*bool flavourPremium = CheckFlavour(flavourlist);
+
+                    Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);*/
+                    Console.Write("Enter ice cream flavour for scoop 2: ");
+                    string flavourInput2 = Console.ReadLine();
+                    flavourlist.Add(flavourInput2);
+
+                    for (int i = 0; i < flavourlist.Count; i++)
+                    {
+                        bool flavourPremium;
+                        if (new[] { "durian", "ube", "sea salt" }.Contains(flavourlist[i].ToLower()))
+                        {
+                            flavourPremium = true;
+                        }
+                        else
+                        {
+                            flavourPremium = false;
+                        }
+                        Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
+                        FlavourObject.Add(newFlavour);
+                    }
+
+                }
+
+            }
+            else if (scoopInput > 2)
+            {
+                Console.Write("Enter quantity: ");
+                int quantityInput = Convert.ToInt32(Console.ReadLine());
+
+                for (int i = 0; i < flavourlist.Count; i++)
+                {
+                    bool flavourPremium;
+                    if (new[] { "durian", "ube", "sea salt" }.Contains(flavourlist[i].ToLower()))
+                    {
+                        flavourPremium = true;
+                    }
+                    else
+                    {
+                        flavourPremium = false;
+                    }
+                    Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);
+                    FlavourObject.Add(newFlavour);
+                }
+
+                while (quantityInput < scoopInput)
+                {
+
+                    /*bool flavourPremium = CheckFlavour(flavourlist);
+
+                    Flavour newFlavour = new Flavour(flavourInput, flavourPremium, quantityInput);*/
+
+                    Console.WriteLine("Enter ice cream flavour for scoop 2: ");
+                    string flavourInput2 = Console.ReadLine();
+                    flavourlist.Add(flavourInput2);
+
+                    Console.Write("Enter quantity: ");
+                    int quantityInput2 = Convert.ToInt32(Console.ReadLine());
+                    if (quantityInput2 > 1)
+                    {
+                        for (int i = 0; i < quantityInput2; i++)
+                        {
+                            flavourlist.Add(flavourInput2);
+
+                        }
+
+                    }
+                    else
+                    {
+                        flavourlist.Add(flavourInput2);
+
+                    }
+
+                    for (int i = 0; i < flavourlist.Count; i++)
+                    {
+                        bool flavourPremium;
+                        if (new[] { "durian", "ube", "sea salt" }.Contains(flavourlist[i].ToLower()))
+                        {
+                            flavourPremium = true;
+                        }
+                        else
+                        {
+                            flavourPremium = false;
+                        }
+                        Flavour newFlavour = new Flavour(flavourInput2, flavourPremium, quantityInput2);
+                        FlavourObject.Add(newFlavour);
+                    }
+                    quantityInput += quantityInput2;
+                }
+
+
+
+            }
+            Console.WriteLine("Enter quantity of types of toppings: ");
+            int quantitytoppings = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < quantitytoppings; i++)
+            {
+                Console.Write("Enter ice cream topping: ");
+                string toppingInput = Console.ReadLine();
+                Topping newTopping = new Topping(toppingInput);
+                ToppingObject.Add(newTopping);
+
+
+
+
+            }
+
+
+
+
+            //Checking type of ice cream
+
+            if (newOption.ToLower() == "cone")
+            {
+                Console.Write("Dipped Ice Cream? [Y/N]: ");
+                string dippedInput = Console.ReadLine();
+
+                bool dippedBool = false;
+                if (dippedInput.ToUpper() == "Y")
+                {
+                    dippedBool = true;
+                }
+                else
+                {
+                    dippedBool = false;
+                }
+
+
+                IceCream newIceCream = new Cone(newOption, scoopInput, FlavourObject, ToppingObject, dippedBool);
+                
+                
+                IceCreamList.Insert(index, newIceCream); // Insert the new ice cream at the specified index
+                IceCreamList.RemoveAt(index + 1); // Remove the ice cream at the next index 
+                //newOrder.AddIceCream(newIceCream);
+                //IceCreamOrderList.Add(newIceCream);
+            }
+            else if (newOption.ToLower() == "waffle")
+            {
+                Console.Write("Enter a waffle flavour: ");
+                string waffleflavourInput = Console.ReadLine();
+                IceCream newIceCream = new Waffle(newOption, scoopInput, FlavourObject, ToppingObject, waffleflavourInput);
+
+                IceCreamList.Insert(index, newIceCream); // Insert the new ice cream at the specified index
+                IceCreamList.RemoveAt(index + 1); // Remove the ice cream at the next index 
+                //newOrder.AddIceCream(newIceCream);
+                //IceCreamOrderList.Add(newIceCream);
+            }
+            else if (newOption.ToLower() == "cup")
+            {
+                IceCream newIceCream = new Cup(newOption, scoopInput, FlavourObject, ToppingObject);
+
+                IceCreamList.Insert(index, newIceCream); // Insert the new ice cream at the specified index
+                IceCreamList.RemoveAt(index + 1); // Remove the ice cream at the next index 
+
+                //newOrder.AddIceCream(newIceCream);
+                //IceCreamOrderList.Add(newIceCream);
+
+            }
+            else
+            {
+                Console.WriteLine("Invalid Option.");
+            }
+
+
+
+
+
+
+                
         }
+
+
+    
 
         public void AddIceCream(IceCream icecream)
         {
