@@ -359,11 +359,12 @@ namespace PRG2_Assignment
                 int pointsToUse = int.Parse(Console.ReadLine());
 
                 // Calculate the discount based on the entered points
-                double discount = Math.Min(total, pointsToUse);
+                /*double discount = Math.Min(total, pointsToUse);*/
+                double discount = pointsToUse * 0.02;
                 total -= discount;
 
                 // Deduct the used points from the customer's points
-                customer.Rewards.Points -= (int)discount;
+                customer.Rewards.Points -= pointsToUse;
             }
 
 
