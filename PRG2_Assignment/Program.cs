@@ -1280,8 +1280,8 @@ while (true)
                             Console.WriteLine($"Total Bill Amount on Birthday: {birthdayTotal.ToString("F2")}");
                         }
 
-                        Console.WriteLine("Press any key to make payment...");
-                        Console.ReadKey();
+                        //Console.WriteLine("Press any key to make payment...");
+                        //Console.ReadKey();
 
                         // Increment the punch card for every ice cream in the order
                         foreach (var iceCream in currentOrder.IceCreamList)
