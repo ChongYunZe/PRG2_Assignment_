@@ -888,28 +888,22 @@ while (true)
                 int modifyInput = Convert.ToInt32(Console.ReadLine());
                 Order orderObject = OrderDict[customerInput];
                 List<IceCream> icecream = IceCreamOrderDict[orderObject];
-                icecream.Add()
 
+                //Finding index of orignal ice cream object
+                int icListIndex = 0;
+                for (int ic = 0; ic < orderObject.IceCreamList.Count; ic++)
+                {
+                    if (orderObject.IceCreamList[ic] == icecream[modifyInput-1])
+                    {
+                        icListIndex = ic;
+                    }
+                }
+                Console.WriteLine(icecream[icListIndex].Option + icecream[icListIndex].Scoops);
+                orderObject.ModifyIceCream(icListIndex);
+                Console.WriteLine(icecream[icListIndex].Option + icecream[icListIndex].Scoops);
 
-
-                /*selectedcustomer.CurrentOrder.IceCreamList[modifyInput-1]*/;
-                /*Console.Write("Select ice cream to modify: ");
-                int iceCreamIndex = int.Parse(Console.ReadLine()) - 1;
-                IceCream iceCreamToModify = selectedcustomer.IceCreamList[iceCreamIndex];
-
-                // Prompt for modifications
-                Console.Write("Enter new flavor: ");
-                string newFlavour = Console.ReadLine();
-                Console.Write("Enter new number of scoops: ");
-                int newScoops = int.Parse(Console.ReadLine());
-                Console.Write("Enter new toppings (comma-separated): ");
-                List<string> newToppings = new List<string>(Console.ReadLine().Split(','));
-
-                // Update ice cream object
-                iceCreamToModify.Flavour = newFlavour;
-                iceCreamToModify.Scoops = newScoops;
-                iceCreamToModify.Toppings = newToppings;*/
             }
+
             else if (optionInput == 2)
             {
                 while (true)
