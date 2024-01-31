@@ -22,9 +22,9 @@ namespace PRG2_Assignment
 
         private DateTime timeReceived;
 
-        public DateTime TimeReceived { get; set; }
+        public DateTime? TimeReceived { get; set; }
 
-        private DateTime? timeFulfilled;
+        private DateTime timeFulfilled;
 
         public DateTime? TimeFulfilled { get; set; }
 
@@ -72,6 +72,20 @@ namespace PRG2_Assignment
         {
             double total = 0;
 
+            if (customer.Rewards.PunchCard == 10)
+            {
+                // Set the cost of the first ice cream in the order to $0.00
+                if (IceCreamList.Count > 0)
+                {
+                    IceCream firstIceCream = IceCreamList[0];
+                    total -= firstIceCream.CalculatePrice();
+
+                    // Reset the punch card to 0
+                    customer.Rewards.PunchCard = 0;
+                }
+            }
+
+
             foreach (IceCream iceCream in IceCreamList)
             {
                 total += iceCream.CalculatePrice();
@@ -94,6 +108,31 @@ namespace PRG2_Assignment
 
                 // Subtract the price of the most expensive ice cream from the total
                 total -= maxPrice;
+            }
+
+           if (customer.Rewards.Tier == "Silver" || customer.Rewards.Tier == "Gold")
+            {
+                // Prompt the user for the number of points they want to use
+                Console.Write("Enter the number of points you want to use to offset your final bill: ");
+                int pointsToUse = int.Parse(Console.ReadLine());
+
+                // Calculate the discount based on the entered points
+                double discount = Math.Min(total, pointsToUse);
+                total -= discount;
+
+                // Deduct the used points from the customer's points
+                customer.Rewards.Points -= (int)discount;
+            }
+
+
+            if (customer.Rewards.Points >= 50)
+            {
+                // Calculate the discount based on the redeemed points
+                double discount = Math.Min(total, customer.Rewards.Points);
+                total -= discount;
+
+                // Deduct the redeemed points from the customer's points
+                customer.Rewards.Points -= (int)discount;
             }
 
             return total;
