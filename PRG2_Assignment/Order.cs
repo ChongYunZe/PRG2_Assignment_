@@ -22,11 +22,11 @@ namespace PRG2_Assignment
 
         private DateTime timeReceived;
 
-        public DateTime? TimeReceived { get; set; }
+        public DateTime TimeReceived { get; set; }
 
         private DateTime timeFulfilled;
 
-        public DateTime? TimeFulfilled { get; set; }
+        public DateTime TimeFulfilled { get; set; }
 
         private List<IceCream> iceCreamList;
 
