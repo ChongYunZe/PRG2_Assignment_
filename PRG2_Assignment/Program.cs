@@ -1291,7 +1291,13 @@ while (true)
 
 
                         // Earn points for the order
-                        int pointsEarned = CalculatePointsEarned(currentOrder, selectedcustomer);
+                        /*int pointsEarned = CalculatePointsEarned(currentOrder, selectedcustomer);*/
+
+                        
+
+                        // Calculate points earned using the conversion rate (72% of the total amount paid)
+                        int pointsEarned = (int)Math.Floor(totalbill * 0.72);
+
                         selectedcustomer.Rewards.AddPoints(pointsEarned);
 
                         Console.WriteLine($"Punch card: {selectedcustomer.Rewards.PunchCard}");
