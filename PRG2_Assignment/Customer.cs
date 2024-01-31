@@ -29,7 +29,7 @@ namespace PRG2_Assignment
         public Order CurrentOrder { get; set; }
 
         private List<Order> orderHistory;
-        public List<Order> OrderHistory { get; set;}
+        public List<Order> OrderHistory { get; set; } = new List<Order>();
 
         private PointCard rewards;
 

@@ -722,7 +722,19 @@ while (true)
 
             Console.WriteLine("============== Past ================");
             OrderHistory(customerInput);
-            orderHistDict.Add(customerInput,icecreamOrder);
+            
+            
+
+                foreach (Order pastOrder in selectedcustomer.OrderHistory)
+                {
+                    Console.WriteLine($"Order ID: {pastOrder.Id}");
+                    Console.WriteLine($"Time Fulfilled: {pastOrder.TimeFulfilled}");
+                    // Display other details of the past order if needed
+                    Console.WriteLine();
+                }
+            }
+            
+
         }
 
         else if (option == 6)
@@ -1294,20 +1306,24 @@ while (true)
                         /*int pointsEarned = CalculatePointsEarned(currentOrder, selectedcustomer);*/
 
                         
+                        //using (StreamWriter sw = new StreamWriter("orders.csv", true))
+                        //{
+                        //    sw.WriteLine($"{currentOrder.Id},{selectedcustomer.Memberid},{currentOrder.TimeReceived},{currentOrder.TimeFulfilled},{},{pointCard.PunchCard}");
+                        //}
 
-                        // Calculate points earned using the conversion rate (72% of the total amount paid)
                         int pointsEarned = (int)Math.Floor(totalbill * 0.72);
+                        //selectedcustomer.OrderHistory.Add(currentOrder);
 
-                        selectedcustomer.Rewards.AddPoints(pointsEarned);
 
                         Console.WriteLine($"Punch card: {selectedcustomer.Rewards.PunchCard}");
                         Console.WriteLine($"Points earned: {pointsEarned}");
 
                         currentOrder.TimeFulfilled = DateTime.Now;
+                        
 
                         // Add the fulfilled order to the customer's order history
-                        selectedcustomer.OrderHistory.Add(currentOrder);
-                        selectedcustomer.Rewards.UpdateTier();
+                        //selectedcustomer.OrderHistory.Add(currentOrder);
+                        
 
 
                         // Thank the customer
