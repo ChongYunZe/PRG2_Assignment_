@@ -725,17 +725,7 @@ while (true)
 
             Console.WriteLine("============== Past ================");
             OrderHistory(customerInput);
-            Customer selectedcustomer = null;
-            if (selectedcustomer != null)
-            {
-                foreach (Order pastOrder in selectedcustomer.OrderHistory)
-                {
-                    Console.WriteLine($"Order ID: {pastOrder.Id}");
-                    Console.WriteLine($"Time Fulfilled: {pastOrder.TimeFulfilled}");
-                    // Display other details of the past order if needed
-                    Console.WriteLine();
-                }
-            }
+            
             
 
         }
@@ -1321,11 +1311,14 @@ while (true)
                         Console.WriteLine($"Points earned: {pointsEarned}");
 
                         currentOrder.TimeFulfilled = DateTime.Now;
-                        
+                        //using (StreamWriter sw = new StreamWriter("orders.csv", true))
+                        //{
+                        //    sw.WriteLine($"{currentOrder.Id},{selectedcustomer.Memberid},{currentOrder.TimeReceived},{currentOrder.TimeFulfilled},{},{pointCard.PunchCard}");
+                        //}
 
                         // Add the fulfilled order to the customer's order history
                         //selectedcustomer.OrderHistory.Add(currentOrder);
-                        
+
 
 
                         // Thank the customer
