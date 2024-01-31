@@ -22,11 +22,11 @@ namespace PRG2_Assignment
 
         private DateTime timeReceived;
 
-        public DateTime? TimeReceived { get; set; }
+        public DateTime TimeReceived { get; set; }
 
         private DateTime timeFulfilled;
 
-        public DateTime? TimeFulfilled { get; set; }
+        public DateTime TimeFulfilled { get; set; }
 
         private List<IceCream> iceCreamList;
 
@@ -368,7 +368,7 @@ namespace PRG2_Assignment
             }
 
 
-            if (customer.Rewards.Points >= 50)
+            /*if (customer.Rewards.Points >= 50)
             {
                 // Calculate the discount based on the redeemed points
                 double discount = Math.Min(total, customer.Rewards.Points);
@@ -376,7 +376,7 @@ namespace PRG2_Assignment
 
                 // Deduct the redeemed points from the customer's points
                 customer.Rewards.Points -= (int)discount;
-            }
+            }*/
 
             return total;
         }

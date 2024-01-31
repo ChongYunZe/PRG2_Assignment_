@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 using static System.Formats.Asn1.AsnWriter;
+using System.Globalization;
 //Daniel --> Features 1, 3, 4
 //YunZe --> Features 2, 5, 6
 
@@ -203,6 +204,7 @@ static int CalculatePointsEarned(Order order, Customer customer)
 
     return pointsEarned;
 }
+
 
 
 while (true)
@@ -720,7 +722,7 @@ while (true)
 
             Console.WriteLine("============== Past ================");
             OrderHistory(customerInput);
-
+            orderHistDict.Add(customerInput,icecreamOrder);
         }
 
         else if (option == 6)
@@ -888,6 +890,7 @@ while (true)
                 int modifyInput = Convert.ToInt32(Console.ReadLine());
                 Order orderObject = OrderDict[customerInput];
                 List<IceCream> icecream = IceCreamOrderDict[orderObject];
+                //icecream.Add()
 
                 //Finding index of orignal ice cream object
                 int icListIndex = 0;
@@ -1189,7 +1192,7 @@ while (true)
                 
                 foreach (Customer customer in customerlist)
                 {
-                    if (customer.CurrentOrder == currentOrder)
+                    if (customer.CurrentOrder != null && customer.CurrentOrder.Id == currentOrder.Id)
                     {
                         selectedcustomer = customer;
                         break; // Exit the loop once a matching customer is found
@@ -1199,75 +1202,115 @@ while (true)
                 if (selectedcustomer != null)
                 {
                     Console.WriteLine("Ice Creams in the Order:");
-                    foreach (IceCream icecream in currentOrder.IceCreamList)
+                    //foreach (IceCream icecream in currentOrder.IceCreamList)
+                    //{
+                    //    Console.WriteLine("Option: {0}", icecream.Option);
+                    //    Console.WriteLine("Scoops: {0}", icecream.Scoops);
+
+                    //    if (icecream is Cone)
+                    //    {
+                    //        Cone icecreamCone = (Cone)icecream;
+                    //        Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
+                    //    }
+                    //    else if (icecream is Waffle)
+                    //    {
+                    //        Waffle icecreamWaffle = (Waffle)icecream;
+                    //        Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+                    //    }
+
+                    //    Console.WriteLine("----- Flavour(s) -----");
+                    //    foreach (Flavour flavour in icecream.Flavours)
+                    //    {
+                    //        Console.WriteLine("Type: {0}  Quantity: {1}", flavour.Type, flavour.Quantity);
+                    //    }
+
+                    //    Console.WriteLine("----- Topping(s) -----");
+                    //    foreach (Topping topping in icecream.Toppings)
+                    //    {
+                    //        Console.WriteLine(topping.Type);
+                    //    }
+                    //}
+                    int customerInput = selectedcustomer.Memberid;
+                    if (OrderDict.ContainsKey(customerInput))
                     {
-                        Console.WriteLine("Option: {0}", icecream.Option);
-                        Console.WriteLine("Scoops: {0}", icecream.Scoops);
+                        Order icecreamOrder = OrderDict[customerInput];
+                        List<IceCream> icecreamDetails = IceCreamOrderDict[icecreamOrder];
+                        for (int i = 0; i < icecreamDetails.Count; i++)
+                        {
+                            IceCream details = icecreamDetails[i];
+                            Console.WriteLine("---------------[{0}]---------------", i + 1);
+                            Console.WriteLine("Option: {0}", details.Option);
+                            Console.WriteLine("Scoops: {0}", details.Scoops);
+                            if (details is Cone)
+                            {
+                                Cone icecreamCone = (Cone)details;
+                                Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
+                            }
+                            else if (details is Waffle)
+                            {
+                                Waffle icecreamWaffle = (Waffle)details;
+                                Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+                            }
+                            Console.WriteLine();
 
-                        if (icecream is Cone)
-                        {
-                            Cone icecreamCone = (Cone)icecream;
-                            Console.WriteLine("Dipped: {0}", icecreamCone.Dipped);
-                        }
-                        else if (icecream is Waffle)
-                        {
-                            Waffle icecreamWaffle = (Waffle)icecream;
-                            Console.WriteLine("Waffle Flavour: {0}", icecreamWaffle.WaffleFlavour);
+
+                            Console.WriteLine("----- Flavour(s) -----");
+                            foreach (Flavour f in details.Flavours)
+                            {
+                                Console.WriteLine("Type: {0} \tQuantity: {1}", f.Type, f.Quantity);
+                            }
+
+                            Console.WriteLine("----- Topping(s) -----");
+                            foreach (Topping t in details.Toppings)
+                            {
+                                Console.WriteLine(t.Type);
+                            }
+                            Console.WriteLine();
+
                         }
 
-                        Console.WriteLine("----- Flavour(s) -----");
-                        foreach (Flavour flavour in icecream.Flavours)
+                        double totalbill = currentOrder.CalculateTotal(selectedcustomer);
+                        Console.WriteLine($"Total Bill Amount: {totalbill.ToString("F2")}");
+                        Console.WriteLine($"Membership Status: {selectedcustomer.Rewards.Tier}  Points: {selectedcustomer.Rewards.Points}");
+
+                        if (selectedcustomer.IsBirthday())
                         {
-                            Console.WriteLine("Type: {0}  Quantity: {1}", flavour.Type, flavour.Quantity);
+                            Console.WriteLine("It is your birthday! The expensive ice cream would be free!");
+                            double birthdayTotal = currentOrder.CalculateTotal(selectedcustomer);
+                            Console.WriteLine($"Total Bill Amount on Birthday: {birthdayTotal.ToString("F2")}");
                         }
 
-                        Console.WriteLine("----- Topping(s) -----");
-                        foreach (Topping topping in icecream.Toppings)
+                        Console.WriteLine("Press any key to make payment...");
+                        Console.ReadKey();
+
+                        // Increment the punch card for every ice cream in the order
+                        foreach (var iceCream in currentOrder.IceCreamList)
                         {
-                            Console.WriteLine(topping.Type);
+                            selectedcustomer.Rewards.Punch();
                         }
+
+
+                        // Earn points for the order
+                        int pointsEarned = CalculatePointsEarned(currentOrder, selectedcustomer);
+                        selectedcustomer.Rewards.AddPoints(pointsEarned);
+
+                        Console.WriteLine($"Punch card: {selectedcustomer.Rewards.PunchCard}");
+                        Console.WriteLine($"Points earned: {pointsEarned}");
+
+                        currentOrder.TimeFulfilled = DateTime.Now;
+
+                        // Add the fulfilled order to the customer's order history
+                        selectedcustomer.OrderHistory.Add(currentOrder);
+                        selectedcustomer.Rewards.UpdateTier();
+
+
+                        // Thank the customer
+                        Console.WriteLine("Thank you for your order!");
+
                     }
-
-                    double totalbill = currentOrder.CalculateTotal(selectedcustomer);
-                    Console.WriteLine($"Total Bill Amount: {totalbill.ToString("F2")}");
-                    Console.WriteLine($"Membership Status: {selectedcustomer.Rewards.Tier}  Points: {selectedcustomer.Rewards.Points}");
-
-                    if (selectedcustomer.IsBirthday())
-                    {
-                        Console.WriteLine("It is your birthday! The expensive ice cream would be free!");
-                        double birthdayTotal = currentOrder.CalculateTotal(selectedcustomer);
-                        Console.WriteLine($"Total Bill Amount on Birthday: {birthdayTotal.ToString("F2")}");
-                    }
-
-                    Console.WriteLine("Press any key to make payment...");
-                    Console.ReadKey();
-
-                    // Increment the punch card for every ice cream in the order
-                    foreach (var iceCream in currentOrder.IceCreamList)
-                    {
-                        selectedcustomer.Rewards.Punch();
-                    }
-
-                    
-                    // Earn points for the order
-                    int pointsEarned = CalculatePointsEarned(currentOrder,selectedcustomer);
-                    selectedcustomer.Rewards.AddPoints(pointsEarned);
-
-                    Console.WriteLine($"Punch card: {selectedcustomer.Rewards.PunchCard}");
-                    Console.WriteLine($"Points earned: {pointsEarned}");
-
-                    currentOrder.TimeFulfilled = DateTime.Now;
-
-                    // Add the fulfilled order to the customer's order history
-                    selectedcustomer.OrderHistory.Add(currentOrder);
-                    selectedcustomer.Rewards.UpdateTier();
-
-                    
-                    // Thank the customer
-                    Console.WriteLine("Thank you for your order!");
 
                     // Additional method to calculate points earned based on the order
-                    
+
                 }
                 else
                 {
@@ -1287,7 +1330,16 @@ while (true)
         else if (option == 8)
         {
             Console.Write("Enter the year: ");
-            string yearInput = Console.ReadLine();
+            int yearInput=Convert.ToInt32(Console.ReadLine());
+            foreach(var order in orderHistDict)
+            {
+                Console.WriteLine($"{order.Key} {order.Value}");
+            }
+            
+            
+
+
+
 
         }
 
