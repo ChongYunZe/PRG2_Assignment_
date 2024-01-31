@@ -314,7 +314,7 @@ namespace PRG2_Assignment
         {
             double total = 0;
 
-            if (customer.Rewards.PunchCard == 10)
+            if (customer.Rewards.PunchCard >= 10)
             {
                 // Set the cost of the first ice cream in the order to $0.00
                 if (IceCreamList.Count > 0)
@@ -323,7 +323,7 @@ namespace PRG2_Assignment
                     total -= firstIceCream.CalculatePrice();
 
                     // Reset the punch card to 0
-                    customer.Rewards.PunchCard = 0;
+                    customer.Rewards.PunchCard = customer.Rewards.PunchCard - 10;
                 }
             }
 
