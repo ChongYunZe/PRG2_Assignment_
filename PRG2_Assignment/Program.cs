@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 using static System.Formats.Asn1.AsnWriter;
+using System.Globalization;
 //Daniel --> Features 1, 3, 4
 //YunZe --> Features 2, 5, 6
 
@@ -200,6 +201,7 @@ static int CalculatePointsEarned(Order order, Customer customer)
 
     return pointsEarned;
 }
+
 
 
 while (true)
@@ -1182,7 +1184,12 @@ while (true)
         else if (option == 8)
         {
             Console.Write("Enter the year: ");
-            string yearInput = Console.ReadLine();
+            int yearInput= Convert.ToInt32(Console.ReadLine());
+            
+            
+
+
+
 
         }
 

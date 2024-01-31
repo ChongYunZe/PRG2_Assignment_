@@ -125,7 +125,7 @@ namespace PRG2_Assignment
             }
 
 
-            if (customer.Rewards.Points >= 50)
+            /*if (customer.Rewards.Points >= 50)
             {
                 // Calculate the discount based on the redeemed points
                 double discount = Math.Min(total, customer.Rewards.Points);
@@ -133,7 +133,7 @@ namespace PRG2_Assignment
 
                 // Deduct the redeemed points from the customer's points
                 customer.Rewards.Points -= (int)discount;
-            }
+            }*/
 
             return total;
         }
