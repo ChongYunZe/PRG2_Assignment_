@@ -191,7 +191,15 @@ void CheckFlavour2(string flavourInput, int quantity, List<string> flavourlist, 
     
 }
 
+static int CalculatePointsEarned(Order order, Customer customer)
+{
+    double totalAmount = order.CalculateTotal(customer);
 
+    // Calculate points earned using the conversion rate (72% of the total amount paid)
+    int pointsEarned = (int)Math.Floor(totalAmount * 0.72);
+
+    return pointsEarned;
+}
 
 
 while (true)
@@ -360,8 +368,11 @@ while (true)
             DisplayCustomer();
             Console.Write("Please select a customer (Enter Member ID): ");
             int customeridInput = Convert.ToInt32(Console.ReadLine());
+            
+
             while (true)
             {
+                
 
                 List<string> flavourlist = new List<string>();
                 List<string> toppingslist = new List<string>();
@@ -656,6 +667,7 @@ while (true)
 
             Console.WriteLine("============== Past ================");
             OrderHistory(customerInput);
+            
         }
 
         else if (option == 6)
@@ -1121,6 +1133,36 @@ while (true)
                         double birthdayTotal = currentOrder.CalculateTotal(selectedcustomer);
                         Console.WriteLine($"Total Bill Amount on Birthday: {birthdayTotal.ToString("F2")}");
                     }
+
+                    Console.WriteLine("Press any key to make payment...");
+                    Console.ReadKey();
+
+                    // Increment the punch card for every ice cream in the order
+                    foreach (var iceCream in currentOrder.IceCreamList)
+                    {
+                        selectedcustomer.Rewards.Punch();
+                    }
+
+                    
+                    // Earn points for the order
+                    int pointsEarned = CalculatePointsEarned(currentOrder,selectedcustomer);
+                    selectedcustomer.Rewards.AddPoints(pointsEarned);
+
+                    Console.WriteLine($"Punch card: {selectedcustomer.Rewards.PunchCard}");
+                    Console.WriteLine($"Points earned: {pointsEarned}");
+
+                    currentOrder.TimeFulfilled = DateTime.Now;
+
+                    // Add the fulfilled order to the customer's order history
+                    selectedcustomer.OrderHistory.Add(currentOrder);
+                    selectedcustomer.Rewards.UpdateTier();
+
+                    
+                    // Thank the customer
+                    Console.WriteLine("Thank you for your order!");
+
+                    // Additional method to calculate points earned based on the order
+                    
                 }
                 else
                 {
@@ -1137,6 +1179,12 @@ while (true)
 
 
         }
+        else if (option == 8)
+        {
+            Console.Write("Enter the year: ");
+            string yearInput = Console.ReadLine();
+
+        }
 
         else if (option > 8)
         {
@@ -1150,7 +1198,9 @@ while (true)
         Console.WriteLine(ex.Message);
     }
 
+
  }
+
 
 
 
